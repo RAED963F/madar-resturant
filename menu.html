@@ -1,0 +1,2429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="mpage_title">القائمة | مدار — سفارة المطبخ العربي في موسكو</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@200;300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════
+   DESIGN SYSTEM TOKENS
+═══════════════════════════════ */
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark: #8B6914;
+      --gold-dim: rgba(201, 168, 76, 0.12);
+      --deep: #0A0705;
+      --dark: #110D08;
+      --dark2: #1A1208;
+      --dark3: #231908;
+      --dark4: #2C2010;
+      --cream: #F5EDD6;
+      --cream2: #EAD9B4;
+      --red: #8B1A1A;
+      --white: #FFF8EC;
+      --muted: #9A8A6A;
+      --muted2: #6B5C3E;
+
+      --transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --glow-sm: 0 0 20px rgba(201, 168, 76, 0.15);
+      --glow-md: 0 0 40px rgba(201, 168, 76, 0.25), 0 0 80px rgba(201, 168, 76, 0.08);
+      --glow-lg: 0 0 60px rgba(201, 168, 76, 0.35), 0 0 120px rgba(201, 168, 76, 0.12);
+    }
+
+    /* ═══════════════════════════════
+   RESET & BASE
+═══════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--deep);
+      color: var(--cream);
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--deep);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-dark);
+    }
+
+    /* ═══════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════ */
+    .cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s;
+    }
+
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201, 168, 76, 0.5);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.35s, height 0.35s, border-color 0.35s;
+    }
+
+    body.hovering .cursor-dot {
+      width: 14px;
+      height: 14px;
+    }
+
+    body.hovering .cursor-ring {
+      width: 54px;
+      height: 54px;
+      border-color: var(--gold);
+    }
+
+    /* ═══════════════════════════════
+   LOADER
+═══════════════════════════════ */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      background: var(--deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+    }
+
+    #loader.out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-arabic {
+      font-family: 'Amiri', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      animation: loaderBreath 1.6s ease-in-out infinite;
+    }
+
+    @keyframes loaderBreath {
+      0%, 100% { opacity: 0.3; letter-spacing: 4px; }
+      50% { opacity: 1; letter-spacing: 8px; }
+    }
+
+    .loader-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .loader-bar {
+      width: 180px;
+      height: 1px;
+      background: rgba(201, 168, 76, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--gold);
+      animation: loaderFill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes loaderFill {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    /* ═══════════════════════════════
+   NAVIGATION
+═══════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 24px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(10, 7, 5, 0.98), rgba(10, 7, 5, 0));
+      transition: padding 0.4s, background 0.4s;
+    }
+
+    nav.compact {
+      padding: 16px 64px;
+      background: rgba(10, 7, 5, 0.97);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      backdrop-filter: blur(24px);
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      text-decoration: none;
+      cursor: none;
+    }
+
+    .nav-brand-ar {
+      font-family: 'Amiri', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      text-shadow: var(--glow-sm);
+    }
+
+    .nav-brand-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.6rem;
+      letter-spacing: 5px;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream2);
+      text-decoration: none;
+      cursor: none;
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 2.5px;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.35s;
+      transform-origin: right;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-reserve {
+      border: 1px solid rgba(201, 168, 76, 0.5) !important;
+      padding: 9px 26px;
+      color: var(--gold) !important;
+      transition: var(--transition) !important;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    }
+
+    .nav-reserve::after { display: none !important; }
+
+    .nav-reserve:hover {
+      background: var(--gold) !important;
+      color: var(--deep) !important;
+      font-weight: 700 !important;
+    }
+
+    /* ═══════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════ */
+    .rv {
+      opacity: 0;
+      transform: translateY(44px);
+      transition: opacity 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rv-l {
+      opacity: 0;
+      transform: translateX(-44px);
+      transition: opacity 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rv-r {
+      opacity: 0;
+      transform: translateX(44px);
+      transition: opacity 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rv.in, .rv-l.in, .rv-r.in {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    .d1 { transition-delay: 0.05s; }
+    .d2 { transition-delay: 0.12s; }
+    .d3 { transition-delay: 0.19s; }
+    .d4 { transition-delay: 0.26s; }
+    .d5 { transition-delay: 0.33s; }
+    .d6 { transition-delay: 0.40s; }
+    .d7 { transition-delay: 0.47s; }
+
+    /* ═══════════════════════════════
+   ORNAMENTAL UTILITIES
+═══════════════════════════════ */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .ornament-line {
+      height: 1px;
+      background: rgba(201, 168, 76, 0.25);
+      flex: 1;
+    }
+
+    .ornament-diamond {
+      width: 7px;
+      height: 7px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .ornament-dot {
+      width: 4px;
+      height: 4px;
+      border: 1px solid var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 6px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-atmosphere {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(139, 26, 26, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(201, 168, 76, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
+        linear-gradient(160deg, #0A0705 0%, #130C05 50%, #0A0705 100%);
+    }
+
+    .hero-geo-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201, 168, 76, 1) 59px, rgba(201, 168, 76, 1) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201, 168, 76, 1) 59px, rgba(201, 168, 76, 1) 60px);
+    }
+
+    .hero-diamonds {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-diamonds svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.04;
+    }
+
+    .hero-glow-orb {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      animation: orbPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes orbPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    }
+
+    .corner-ornament {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-color: rgba(201, 168, 76, 0.2);
+      border-style: solid;
+    }
+
+    .corner-ornament.tl { top: 100px; right: 60px; border-width: 1px 0 0 1px; }
+    .corner-ornament.tr { top: 100px; left: 60px; border-width: 1px 1px 0 0; }
+    .corner-ornament.bl { bottom: 80px; right: 60px; border-width: 0 0 1px 1px; }
+    .corner-ornament.br { bottom: 80px; left: 60px; border-width: 0 1px 1px 0; }
+
+    .corner-ornament::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-color: rgba(201, 168, 76, 0.12);
+      border-style: solid;
+    }
+
+    .corner-ornament.tl::after { top: 8px; right: 8px; border-width: 1px 0 0 1px; }
+    .corner-ornament.tr::after { top: 8px; left: 8px; border-width: 1px 1px 0 0; }
+    .corner-ornament.bl::after { bottom: 8px; right: 8px; border-width: 0 0 1px 1px; }
+    .corner-ornament.br::after { bottom: 8px; left: 8px; border-width: 0 1px 1px 0; }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 0 40px;
+    }
+
+    .hero-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+
+    .hero-breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+      cursor: none;
+      transition: color 0.3s;
+    }
+
+    .hero-breadcrumb a:hover { color: var(--gold); }
+    .hero-breadcrumb span { color: rgba(201, 168, 76, 0.4); }
+
+    .hero-pre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 8px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: fadeSlideUp 1s 0.4s both;
+    }
+
+    .hero-title-wrap {
+      position: relative;
+      margin-bottom: 32px;
+      animation: fadeSlideUp 1.1s 0.55s both;
+    }
+
+    .hero-title-main {
+      font-family: 'Amiri', serif;
+      font-size: clamp(5rem, 14vw, 11rem);
+      font-weight: 700;
+      line-height: 0.9;
+      color: var(--white);
+      text-shadow: 0 0 80px rgba(201, 168, 76, 0.12);
+      display: block;
+    }
+
+    .hero-title-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      font-style: italic;
+      letter-spacing: 8px;
+      color: var(--gold);
+      margin-top: 12px;
+      display: block;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: min(500px, 80vw);
+      margin: 0 auto 32px;
+      animation: fadeSlideUp 1.1s 0.7s both;
+    }
+
+    .hero-divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(201, 168, 76, 0.2);
+    }
+
+    .hero-divider-symbol {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      transform: rotate(45deg);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hero-divider-symbol::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--muted);
+      max-width: 520px;
+      animation: fadeSlideUp 1.1s 0.85s both;
+      margin-bottom: 52px;
+    }
+
+    .hero-scroll-cue {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: fadeSlideUp 1s 1.2s both;
+    }
+
+    .hero-scroll-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      color: var(--muted2);
+      text-transform: uppercase;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollDrop 2.2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDrop {
+      0%, 100% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      50% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════
+   MARQUEE STRIP
+═══════════════════════════════ */
+    .marquee-strip {
+      overflow: hidden;
+      background: linear-gradient(90deg, var(--dark2) 0%, #1f1608 50%, var(--dark2) 100%);
+      border-top: 1px solid rgba(201, 168, 76, 0.12);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 13px 0;
+    }
+
+    .marquee-inner {
+      display: flex;
+      gap: 0;
+      animation: marqueeScroll 35s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .mq-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 32px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 5px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .mq-gem {
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* ═══════════════════════════════
+   CATEGORY GRID SECTION
+═══════════════════════════════ */
+    #categories {
+      padding: 130px 60px;
+      position: relative;
+      overflow: hidden;
+      background: var(--deep);
+    }
+
+    #categories::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(139, 26, 26, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(201, 168, 76, 0.04) 0%, transparent 55%);
+    }
+
+    .cats-header {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cats-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2.6rem, 4.5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .cats-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .cats-body {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 3px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .cat-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark2);
+      border: 1px solid rgba(201, 168, 76, 0.07);
+      cursor: none;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.45s, box-shadow 0.45s;
+    }
+
+    .cat-card:hover {
+      border-color: rgba(201, 168, 76, 0.28);
+      box-shadow: var(--glow-md), inset 0 0 0 1px rgba(201, 168, 76, 0.04);
+      z-index: 2;
+    }
+
+    .cat-card.featured { grid-row: span 2; }
+
+    .cat-img {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cat-card:not(.featured) .cat-img { aspect-ratio: 16/10; }
+    .cat-card.featured .cat-img { aspect-ratio: 3/4; }
+
+    .cat-img-bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cat-card:hover .cat-img-bg { transform: scale(1.08); }
+
+    .cat-card[data-cat="drinks"] .cat-img-bg { background: radial-gradient(ellipse at 40% 30%, #1A2C1A, #0A0A14); }
+    .cat-card[data-cat="salads"] .cat-img-bg { background: radial-gradient(ellipse at 60% 40%, #1A2A10, #0D1A08); }
+    .cat-card[data-cat="meats"] .cat-img-bg { background: radial-gradient(ellipse at 35% 35%, #2C1005, #1A0803); }
+    .cat-card[data-cat="seafood"] .cat-img-bg { background: radial-gradient(ellipse at 50% 30%, #081A2C, #050A18); }
+    .cat-card[data-cat="starters"] .cat-img-bg { background: radial-gradient(ellipse at 45% 40%, #1A1205, #100A02); }
+    .cat-card[data-cat="desserts"] .cat-img-bg { background: radial-gradient(ellipse at 40% 35%, #2A1A08, #180E04); }
+    .cat-card[data-cat="breakfast"] .cat-img-bg { background: radial-gradient(ellipse at 55% 35%, #1A1A08, #0E0E04); }
+
+    .cat-emoji {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
+      z-index: 1;
+    }
+
+    .cat-card.featured .cat-emoji { font-size: clamp(5rem, 8vw, 8rem); }
+    .cat-card:hover .cat-emoji { transform: translate(-50%, -52%) scale(1.12); }
+
+    .cat-img-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(to bottom, transparent 40%, rgba(10, 7, 5, 0.85) 100%);
+      transition: opacity 0.4s;
+    }
+
+    .cat-glow {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .cat-card:hover .cat-glow { opacity: 1; }
+
+    .cat-corner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 3;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 48px 48px 0;
+      border-color: transparent rgba(201, 168, 76, 0.15) transparent transparent;
+      transition: border-color 0.4s;
+    }
+
+    .cat-card:hover .cat-corner { border-color: transparent rgba(201, 168, 76, 0.4) transparent transparent; }
+
+    .cat-num {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 4;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: rgba(201, 168, 76, 0.5);
+    }
+
+    .cat-body {
+      padding: 24px 28px 28px;
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cat-card.featured .cat-body { padding: 28px 32px 36px; }
+
+    .cat-body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 28px;
+      right: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.2), transparent);
+    }
+
+    .cat-name-ar {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 4px;
+      transition: color 0.3s;
+    }
+
+    .cat-card.featured .cat-name-ar { font-size: clamp(1.6rem, 2.5vw, 2rem); }
+    .cat-card:hover .cat-name-ar { color: var(--gold-light); }
+
+    .cat-name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cat-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+
+    .cat-card.featured .cat-desc { font-size: 0.88rem; }
+
+    .cat-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      transition: gap 0.35s;
+    }
+
+    .cat-link::after { content: '←'; }
+    .cat-card:hover .cat-link { gap: 16px; }
+
+    .cat-count {
+      position: absolute;
+      top: 22px;
+      left: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: var(--muted2);
+      text-transform: uppercase;
+    }
+
+    .cat-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cat-card:hover .cat-bottom-bar { transform: scaleX(1); }
+
+    /* ═══════════════════════════════
+   FEATURED BANNER
+═══════════════════════════════ */
+    #featured-banner {
+      padding: 0 60px 130px;
+      position: relative;
+    }
+
+    .banner-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      overflow: hidden;
+      background: var(--dark);
+      position: relative;
+    }
+
+    .banner-left {
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(139, 26, 26, 0.15), transparent 60%);
+    }
+
+    .banner-left-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 8px 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .banner-tag-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.2 }
+    }
+
+    .banner-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .banner-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .banner-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .btn-gold {
+      display: inline-block;
+      padding: 15px 44px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--deep);
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-gold:hover::before { left: 100%; }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(201, 168, 76, 0.3); }
+
+    .banner-right {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--dark3), var(--dark2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .banner-right-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(201, 168, 76, 0.06) 0%, transparent 60%);
+    }
+
+    .banner-right-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      padding: 40px;
+      width: 100%;
+    }
+
+    .banner-dish {
+      background: rgba(201, 168, 76, 0.03);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 24px;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+      cursor: none;
+    }
+
+    .banner-dish:hover {
+      background: rgba(201, 168, 76, 0.07);
+      border-color: rgba(201, 168, 76, 0.2);
+    }
+
+    .banner-dish-emoji { font-size: 2rem; margin-bottom: 10px; display: block; }
+
+    .banner-dish-name {
+      font-family: 'Amiri', serif;
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .banner-dish-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .banner-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    .banner-inner::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(201, 168, 76, 0.06);
+    }
+
+    /* ═══════════════════════════════
+   HALAL PROMISE STRIP
+═══════════════════════════════ */
+    .halal-strip {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 60px 130px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+
+    .halal-card {
+      padding: 40px 32px;
+      background: var(--dark2);
+      border: 1px solid rgba(201, 168, 76, 0.07);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, background 0.4s;
+      cursor: none;
+    }
+
+    .halal-card:hover {
+      border-color: rgba(201, 168, 76, 0.22);
+      background: var(--dark3);
+    }
+
+    .halal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.4s;
+    }
+
+    .halal-card:hover::before { width: 80px; }
+
+    .halal-icon { font-size: 2rem; margin-bottom: 18px; display: block; }
+
+    .halal-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .halal-text { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+
+    /* ═══════════════════════════════
+   INDIVIDUAL CATEGORY PAGES
+═══════════════════════════════ */
+    .cat-page {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: var(--deep);
+      overflow-y: auto;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .cat-page.active { display: block; }
+    .cat-page.visible { opacity: 1; }
+
+    .cp-hero {
+      position: relative;
+      min-height: 50vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 60px;
+      overflow: hidden;
+    }
+
+    .cp-hero-bg { position: absolute; inset: 0; }
+
+    .cp-hero-emoji {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 10rem;
+      opacity: 0.15;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .cp-hero-content { position: relative; z-index: 1; }
+
+    .cp-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      margin-bottom: 32px;
+      transition: color 0.3s;
+      background: none;
+      border: none;
+    }
+
+    .cp-back:hover { color: var(--gold); }
+    .cp-back::before { content: '→'; }
+
+    .cp-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .cp-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      letter-spacing: 3px;
+      color: var(--gold);
+      margin-top: 10px;
+    }
+
+    .cp-items {
+      padding: 80px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .cp-items-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .cp-item {
+      background: var(--dark2);
+      border: 1px solid rgba(201, 168, 76, 0.07);
+      overflow: hidden;
+      cursor: none;
+      transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+    }
+
+    .cp-item:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+      transform: translateY(-5px);
+      box-shadow: var(--glow-sm), 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .cp-item-img {
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cp-item-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(10, 7, 5, 0.7));
+    }
+
+    .cp-item-body { padding: 24px 28px 28px; }
+
+    .cp-item-name {
+      font-family: 'Amiri', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .cp-item-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .cp-item-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding-top: 16px;
+    }
+
+    .cp-item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .cp-item-tag {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--muted2);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 4px 10px;
+      text-transform: uppercase;
+    }
+
+    .cp-item-halal {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      background: rgba(10, 7, 5, 0.8);
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      padding: 3px 10px;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    /* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 60px;
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .footer-brand-ar { font-family: 'Amiri', serif; font-size: 2rem; color: var(--gold); font-weight: 700; }
+
+    .footer-brand-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.6rem;
+      letter-spacing: 5px;
+      color: var(--muted2);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      cursor: none;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-halal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 10px 20px;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--gold-dark);
+    }
+
+    .footer-copy {
+      width: 100%;
+      padding-top: 32px;
+      border-top: 1px solid rgba(201, 168, 76, 0.06);
+      font-size: 0.75rem;
+      color: var(--muted2);
+      text-align: center;
+      letter-spacing: 1px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+    @media (max-width: 1100px) {
+      .cats-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-card.featured { grid-row: span 1; }
+      .cat-card.featured .cat-img { aspect-ratio: 16/9; }
+      .banner-inner { grid-template-columns: 1fr; }
+      .halal-strip { grid-template-columns: repeat(2, 1fr); padding-bottom: 80px; }
+      .cp-items-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      nav.compact { padding: 14px 24px; }
+      #categories, #featured-banner { padding: 80px 24px; }
+      .halal-strip { padding: 0 24px 80px; grid-template-columns: 1fr; }
+      .cats-grid { grid-template-columns: 1fr; gap: 3px; }
+      .corner-ornament { display: none; }
+      .cp-items { padding: 60px 24px; }
+      .cp-items-grid { grid-template-columns: 1fr; }
+      .cp-hero { padding: 100px 24px 40px; }
+      footer { padding: 40px 24px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ LOADER ══ -->
+  <div id="loader">
+    <div class="loader-arabic" data-i18n="mpage_loader_title">القائمة</div>
+    <div class="loader-sub" data-i18n="mpage_loader_sub">The Menu · Madar Moscow</div>
+    <div class="loader-bar">
+      <div class="loader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- ══ CURSOR ══ -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- ══ NAVIGATION ══ -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-ar">مدار</span>
+      <span class="nav-brand-en" data-i18n="mnav_brand_en">MADAR · MOSCOW</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-i18n="mnav_home">الصفحة الرئيسية</a></li>
+      <li><a href="#" class="active" data-i18n="mnav_menu">القائمة</a></li>
+      <li><a href="index.html#halal" data-i18n="mnav_halal">حلال</a></li>
+      <li><a href="index.html#regions" data-i18n="mnav_regions">المناطق</a></li>
+      <li><a href="index.html#events" data-i18n="mnav_events">الفعاليات</a></li>
+      <li><a href="index.html#reservation" class="nav-reserve" data-i18n="mnav_reserve">احجز طاولة</a></li>
+    </ul>
+    <!-- Language Switcher injected by i18n.js -->
+  </nav>
+
+  <!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-atmosphere"></div>
+    <div class="hero-geo-pattern"></div>
+    <div class="hero-glow-orb"></div>
+
+    <div class="hero-diamonds">
+      <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="diamonds" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+            <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="#C9A84C" stroke-width="0.5" />
+            <polygon points="40,10 70,40 40,70 10,40" fill="none" stroke="#C9A84C" stroke-width="0.3" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#diamonds)" />
+      </svg>
+    </div>
+
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+
+    <div class="hero-content">
+      <div class="hero-breadcrumb rv">
+        <a href="index.html" data-i18n="mhero_breadcrumb_home">مدار</a>
+        <span>◆</span>
+        <span data-i18n="mhero_breadcrumb_current">القائمة</span>
+      </div>
+
+      <div class="hero-pre rv d1" data-i18n="mhero_pre">MADAR RESTAURANT · MOSCOW</div>
+
+      <div class="hero-title-wrap rv d2">
+        <span class="hero-title-main" data-i18n="mhero_title">القائمة</span>
+        <span class="hero-title-en" data-i18n="mhero_title_en">A Journey Through Arab Culinary Heritage</span>
+      </div>
+
+      <div class="hero-divider rv d3">
+        <div class="hero-divider-line"></div>
+        <div class="hero-divider-symbol"></div>
+        <div class="hero-divider-line"></div>
+      </div>
+
+      <p class="hero-desc rv d4" data-i18n="mhero_desc">
+        رحلة مذاق عبر الوطن العربي وطريق الحرير — من بلاد الشام إلى سمرقند، كل طبق تحفة فنية تُقدَّم بمكونات مختارة
+        بعناية وإشراف نخبة من أمهر الطهاة العرب.
+      </p>
+
+      <div class="hero-scroll-cue rv d5">
+        <span class="hero-scroll-label" data-i18n="mhero_scroll_label">اكتشف القائمة</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MARQUEE ══ -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_halal">حلال ١٠٠٪ مضمون</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_halal_en">HALAL CERTIFIED</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_shami">مطبخ شامي أصيل</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_gulf">مطبخ خليجي فاخر</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_silk">طريق الحرير العظيم</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_silk_en">SILK ROAD CUISINE</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_maghrib">أطباق المغرب العربي</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_fine">FINE ARABIC DINING</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_moscow">موسكو · MOSCOW</span></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_halal">حلال ١٠٠٪ مضمون</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_halal_en">HALAL CERTIFIED</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_shami">مطبخ شامي أصيل</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_gulf">مطبخ خليجي فاخر</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_silk">طريق الحرير العظيم</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_silk_en">SILK ROAD CUISINE</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_maghrib">أطباق المغرب العربي</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_fine">FINE ARABIC DINING</span></div>
+      <div class="mq-item"><div class="mq-gem"></div><span data-i18n="mmq_moscow">موسكو · MOSCOW</span></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+     CATEGORY GRID
+══════════════════════════════ -->
+  <section id="categories">
+    <div class="cats-header">
+      <div class="section-eyebrow rv" data-i18n="mcats_eyebrow">اختر فصلك</div>
+      <h2 class="cats-title rv d1">
+        <span data-i18n="mcats_title_1">كل فصل…</span> <em data-i18n="mcats_title_2">رحلة مستقلة</em>
+      </h2>
+      <div class="ornament rv d2" style="width:300px;margin:24px auto">
+        <div class="ornament-line"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-line"></div>
+      </div>
+      <p class="cats-body rv d3" data-i18n="mcats_body">
+        سبعة أبواب تفتح على عوالم طعام مختلفة — من الفطور الملكي حتى الحلويات الشرقية، كل فصل عالم بحد ذاته.
+      </p>
+    </div>
+
+    <div class="cats-grid">
+
+      <!-- MEATS — Featured tall -->
+      <div class="cat-card featured rv d1" data-cat="meats" onclick="openCatPage('meats')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🥩</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">01</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_meats_name">اللحوم</div>
+            <div class="cat-name-en" data-i18n="mcat_meats_en">Meats & Grills</div>
+            <p class="cat-desc" data-i18n="mcat_meats_desc">مشاوي وأطباق لحوم فاخرة — مندي خليجي، كباب حلبي، وأشهر الأطباق من خيرة ذبائح الماشية الحلال المختارة.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_meats_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+      <!-- STARTERS -->
+      <div class="cat-card rv d2" data-cat="starters" onclick="openCatPage('starters')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🫒</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">02</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_starters_name">المقبلات</div>
+            <div class="cat-name-en" data-i18n="mcat_starters_en">Starters & Mezze</div>
+            <p class="cat-desc" data-i18n="mcat_starters_desc">مزة لبنانية، حمص، متبل، وورق عنب — بداية لا تُنسى لكل وجبة.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_starters_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+      <!-- SEAFOOD -->
+      <div class="cat-card rv d3" data-cat="seafood" onclick="openCatPage('seafood')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🦞</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">03</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_seafood_name">المأكولات البحرية</div>
+            <div class="cat-name-en" data-i18n="mcat_seafood_en">Seafood</div>
+            <p class="cat-desc" data-i18n="mcat_seafood_desc">أسماك وثمار بحر قزوين والبحر الأبيض المتوسط المشوية بالتوابل العربية الأصيلة.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_seafood_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+      <!-- SALADS — Featured tall -->
+      <div class="cat-card featured rv d2" data-cat="salads" onclick="openCatPage('salads')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🥗</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">04</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_salads_name">السلطات</div>
+            <div class="cat-name-en" data-i18n="mcat_salads_en">Salads & Greens</div>
+            <p class="cat-desc" data-i18n="mcat_salads_desc">تبولة شامية، فتوش لبناني، وسلطات المغرب العربي — طازجة يومياً من أجود المكونات.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_salads_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="cat-card rv d4" data-cat="desserts" onclick="openCatPage('desserts')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🍯</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">05</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_desserts_name">الحلويات</div>
+            <div class="cat-name-en" data-i18n="mcat_desserts_en">Oriental Sweets</div>
+            <p class="cat-desc" data-i18n="mcat_desserts_desc">كنافة نابلسية، بقلاوة، أم علي — تحف حلوى من ذاكرة العالم العربي.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_desserts_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="cat-card rv d5" data-cat="drinks" onclick="openCatPage('drinks')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🫖</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">06</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_drinks_name">المشروبات</div>
+            <div class="cat-name-en" data-i18n="mcat_drinks_en">Drinks & Infusions</div>
+            <p class="cat-desc" data-i18n="mcat_drinks_desc">شاي مغربي بالنعناع، قهوة عربية بالهيل، عصائر طازجة وعروق أصيلة.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_drinks_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+      <!-- BREAKFAST -->
+      <div class="cat-card rv d6" data-cat="breakfast" onclick="openCatPage('breakfast')">
+        <div class="cat-img">
+          <div class="cat-img-bg"></div>
+          <div class="cat-glow"></div>
+          <div class="cat-emoji">🥚</div>
+          <div class="cat-img-vignette"></div>
+          <div class="cat-corner"></div>
+          <div class="cat-num">07</div>
+        </div>
+        <div class="cat-body">
+          <div>
+            <div class="cat-name-ar" data-i18n="mcat_breakfast_name">الفطور</div>
+            <div class="cat-name-en" data-i18n="mcat_breakfast_en">Breakfast</div>
+            <p class="cat-desc" data-i18n="mcat_breakfast_desc">فطور شامي وخليجي ملكي — فول مدمس، حمص بزيت، بيض مع السمن العربي وخبز تنوري.</p>
+          </div>
+          <a class="cat-link" href="#" data-i18n="mcat_breakfast_link">اكتشف الأطباق</a>
+          <div class="cat-bottom-bar"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+     FEATURED BANNER — Chef's Picks
+══════════════════════════════ -->
+  <section id="featured-banner">
+    <div class="banner-inner rv">
+      <div class="banner-divider"></div>
+      <div class="banner-left">
+        <div class="banner-left-content">
+          <div class="banner-tag">
+            <div class="banner-tag-dot"></div>
+            <span data-i18n="mbanner_tag">اختيارات الشيف</span>
+          </div>
+          <h2 class="banner-title">
+            <span data-i18n="mbanner_title_1">أطباق</span> <em data-i18n="mbanner_title_2">الشيف</em><br><span data-i18n="mbanner_title_3">المميزة اليوم</span>
+          </h2>
+          <p class="banner-desc" data-i18n="mbanner_desc">
+            يختار طهاتنا كل يوم مجموعة خاصة من الأطباق الموسمية الحصرية، مستوحاة من موسم المكونات وإلهام المطبخ العربي الحي.
+          </p>
+          <a href="index.html#reservation" class="btn-gold" data-i18n="mbanner_cta">احجز وتذوق</a>
+        </div>
+      </div>
+      <div class="banner-right">
+        <div class="banner-right-bg"></div>
+        <div class="banner-right-content">
+          <div class="banner-dish">
+            <span class="banner-dish-emoji">🥩</span>
+            <div class="banner-dish-name" data-i18n="mbanner_dish1_name">مندي الخروف الملكي</div>
+            <div class="banner-dish-price">٣٨٠٠ ₽</div>
+          </div>
+          <div class="banner-dish">
+            <span class="banner-dish-emoji">🫕</span>
+            <div class="banner-dish-name" data-i18n="mbanner_dish2_name">طاجن لحم بالبرقوق</div>
+            <div class="banner-dish-price">٢٤٠٠ ₽</div>
+          </div>
+          <div class="banner-dish">
+            <span class="banner-dish-emoji">🥙</span>
+            <div class="banner-dish-name" data-i18n="mbanner_dish3_name">كباب حلبي</div>
+            <div class="banner-dish-price">١٨٠٠ ₽</div>
+          </div>
+          <div class="banner-dish">
+            <span class="banner-dish-emoji">🍚</span>
+            <div class="banner-dish-name" data-i18n="mbanner_dish4_name">بلوو أوزبكي</div>
+            <div class="banner-dish-price">١٦٠٠ ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HALAL PROMISES ══ -->
+  <div class="halal-strip">
+    <div class="halal-card rv d1">
+      <span class="halal-icon">☾</span>
+      <div class="halal-title" data-i18n="mhalal1_title">حلال ١٠٠٪</div>
+      <p class="halal-text" data-i18n="mhalal1_text">كل طبق في قائمتنا مضمون حلال بموجب شهادات دولية معتمدة.</p>
+    </div>
+    <div class="halal-card rv d2">
+      <span class="halal-icon">🌿</span>
+      <div class="halal-title" data-i18n="mhalal2_title">مكونات طازجة</div>
+      <p class="halal-text" data-i18n="mhalal2_text">نختار مكوناتنا يومياً من أجود الموردين المعتمدين في موسكو والعالم.</p>
+    </div>
+    <div class="halal-card rv d3">
+      <span class="halal-icon">👨‍🍳</span>
+      <div class="halal-title" data-i18n="mhalal3_title">طهاة عرب</div>
+      <p class="halal-text" data-i18n="mhalal3_text">نخبة من أمهر الطهاة العرب يحملون أسرار المطبخ من بلادهم الأصلية.</p>
+    </div>
+    <div class="halal-card rv d4">
+      <span class="halal-icon">⭐</span>
+      <div class="halal-title" data-i18n="mhalal4_title">معايير ٥ نجوم</div>
+      <p class="halal-text" data-i18n="mhalal4_text">معايير الجودة والنظافة والخدمة تطابق أعلى الفنادق الفاخرة في العالم.</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+     INDIVIDUAL CATEGORY PAGES (overlays)
+════════════════════════════════════════ -->
+
+  <!-- MEATS PAGE -->
+  <div class="cat-page" id="page-meats">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#2C1005,#1A0A03)">
+      <div class="cp-hero-emoji">🥩</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('meats')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_meats_title">اللحوم والمشاوي</div>
+        <div class="cp-sub" data-i18n="mcp_meats_en">Meats, Grills & Heritage Dishes</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#2C1005,#1A0A03)">
+            <span style="position:relative;z-index:1;filter:drop-shadow(0 8px 20px rgba(0,0,0,0.5))">🥩</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_meats_dish1_name">مندي الخروف الملكي</div>
+            <p class="cp-item-desc" data-i18n="mcp_meats_dish1_desc">خروف كامل مطبوخ على الفحم بالتوابل العربية الأصيلة لساعات طويلة حتى يتفتت اللحم بلطف على الأرز البسمتي المعطر.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٣٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_meats_dish1_tag">🇸🇦 خليجي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A0A03,#2A1208)">
+            <span style="position:relative;z-index:1">🔥</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_meats_dish2_name">كباب حلبي</div>
+            <p class="cp-item-desc" data-i18n="mcp_meats_dish2_desc">كباب اللحم المفروم الحلبي مع التوابل السرية والخضار المشوية، مقدم على خبز عربي طازج ساخن مع صلصة التوم.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">١٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_meats_dish2_tag">🇸🇾 شامي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1005,#0E0A03)">
+            <span style="position:relative;z-index:1">🍖</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_meats_dish3_name">كبسة الجمال</div>
+            <p class="cp-item-desc" data-i18n="mcp_meats_dish3_desc">أرز بسمتي معطر باللوز والزبيب مع لحم الجمل الطري المتبل بخليط توابل الجنوب العربي الأصيل.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٣٢٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_meats_dish3_tag">🇸🇦 نادر</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#200A05,#150503)">
+            <span style="position:relative;z-index:1">🫕</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_meats_dish4_name">دمعة الهريس</div>
+            <p class="cp-item-desc" data-i18n="mcp_meats_dish4_desc">هريس القمح الكامل مع لحم الخروف المهروس والزبدة السائلة والقرفة — طبق من ذاكرة رمضان العربي.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">١٤٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_meats_dish4_tag">🇦🇪 إماراتي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A0D04,#120904)">
+            <span style="position:relative;z-index:1">🥗</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_meats_dish5_name">مضغوط اللحم</div>
+            <p class="cp-item-desc" data-i18n="mcp_meats_dish5_desc">اللحم والأرز مطبوخان في إناء مفخور مع توابل الزعفران والهيل — طبق إماراتي بامتياز يفوح بالعطر.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٢٦٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_meats_dish5_tag">🇦🇪 تقليدي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#180C05,#0E0804)">
+            <span style="position:relative;z-index:1">🍚</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_meats_dish6_name">بلوو أوزبكي (أوش)</div>
+            <p class="cp-item-desc" data-i18n="mcp_meats_dish6_desc">الأرز السمرقندي الشهير مع لحم الضأن والجزر الأصفر والتوابل الأصيلة، طُهي في مرجل نحاسي على الحطب.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">١٦٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_meats_dish6_tag">🇺🇿 سمرقند</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STARTERS PAGE -->
+  <div class="cat-page" id="page-starters">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#1A1205,#100A02)">
+      <div class="cp-hero-emoji">🫒</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('starters')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_starters_title">المقبلات</div>
+        <div class="cp-sub" data-i18n="mcp_starters_en">Starters, Mezze & Cold Plates</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1A0A,#0E0E05)">
+            <span style="position:relative;z-index:1">🫒</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_starters_dish1_name">مزة لبنانية فاخرة</div>
+            <p class="cp-item-desc" data-i18n="mcp_starters_dish1_desc">١٥ صنفاً من أجود المقبلات اللبنانية: حمص، متبل، تبولة، ورق عنب، كبة نيئة وغيرها في طبق واحد.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٢٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_starters_dish1_tag">🇱🇧 لبناني</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#0A180A,#050E05)">
+            <span style="position:relative;z-index:1">🥙</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_starters_dish2_name">حمص بزيت</div>
+            <p class="cp-item-desc" data-i18n="mcp_starters_dish2_desc">حمص مطحون ناعم مع طحينة أصيلة، زيت زيتون بكر، ليمون وكمون — بالطريقة الشامية الأصلية.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٦٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_starters_dish2_tag">🇸🇾 شامي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A0A05,#100604)">
+            <span style="position:relative;z-index:1">🧆</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_starters_dish3_name">فلافل دمشقي</div>
+            <p class="cp-item-desc" data-i18n="mcp_starters_dish3_desc">فلافل مقرمش من الفول والحمص محضّر بالأعشاب الطازجة، مقدم مع صلصة الطحينة والخل.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_starters_dish3_tag">🇸🇾 دمشقي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#0A1A10,#050E08)">
+            <span style="position:relative;z-index:1">🌿</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_starters_dish4_name">ورق عنب بالزيت</div>
+            <p class="cp-item-desc" data-i18n="mcp_starters_dish4_desc">أوراق عنب طرية محشوة بالأرز والأعشاب والليمون، مطبوخة في مرق الطماطم الطازج.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">١٠٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_starters_dish4_tag">🇱🇧 لبناني</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1408,#0E0C06)">
+            <span style="position:relative;z-index:1">🧀</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_starters_dish5_name">جبنة حلومي مشوية</div>
+            <p class="cp-item-desc" data-i18n="mcp_starters_dish5_desc">حلومي قبرصي أصيل مشوي على الفحم مع العسل البلدي وإكليل الجبل الطازج.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">١٢٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_starters_dish5_tag">🇯🇴 أردني</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#150A18,#0A0510)">
+            <span style="position:relative;z-index:1">🍆</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_starters_dish6_name">متبل باذنجان</div>
+            <p class="cp-item-desc" data-i18n="mcp_starters_dish6_desc">باذنجان مشوي على الفحم حتى يتفحّم القشر، ثم يُهرس مع الطحينة والثوم المحمص والليمون الحامض.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٧٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_starters_dish6_tag">🇸🇾 شامي</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESSERTS PAGE -->
+  <div class="cat-page" id="page-desserts">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#2A1A08,#180E04)">
+      <div class="cp-hero-emoji">🍯</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('desserts')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_desserts_title">الحلويات</div>
+        <div class="cp-sub" data-i18n="mcp_desserts_en">Oriental Sweets & Pastries</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#2A1A08,#180E04)">
+            <span style="position:relative;z-index:1">🍯</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_desserts_dish1_name">كنافة نابلسية</div>
+            <p class="cp-item-desc" data-i18n="mcp_desserts_dish1_desc">العجينة الذهبية المقرمشة مع الجبن النابلسي الطري، مغطاة بالقطر العطري ومزيّنة بالفستق الحلبي المطحون.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">١٢٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_desserts_dish1_tag">🇵🇸 نابلس</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1206,#100C04)">
+            <span style="position:relative;z-index:1">🥐</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_desserts_dish2_name">بقلاوة بالفستق</div>
+            <p class="cp-item-desc" data-i18n="mcp_desserts_dish2_desc">طبقات من عجين الفيلو الرقيق محشوة بالفستق الحلبي الأخضر والسمن، مسكّرة بالقطر المعطر بماء الزهر.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٩٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_desserts_dish2_tag">🇸🇾 حلبي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1410,#0E0C08)">
+            <span style="position:relative;z-index:1">🍮</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_desserts_dish3_name">أم علي المصرية</div>
+            <p class="cp-item-desc" data-i18n="mcp_desserts_dish3_desc">حلوى خبز محمص بالحليب الكامل الدسم والجوز والزبيب والكريمة، مخبوزة في الفرن حتى تتذهب بلون ذهبي.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_desserts_dish3_tag">🇪🇬 مصري</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRINKS PAGE -->
+  <div class="cat-page" id="page-drinks">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#1A2C1A,#0A1208)">
+      <div class="cp-hero-emoji">🫖</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('drinks')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_drinks_title">المشروبات</div>
+        <div class="cp-sub" data-i18n="mcp_drinks_en">Drinks, Teas & Infusions</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#0A1A0A,#050E05)">
+            <span style="position:relative;z-index:1">🫖</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_drinks_dish1_name">شاي مغربي بالنعناع</div>
+            <p class="cp-item-desc" data-i18n="mcp_drinks_dish1_desc">شاي أخضر مغربي أصيل مُصبوب من علوٍ مع النعناع الطازج والسكر الصخري في إبريق نحاسي تقليدي.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٤٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_drinks_dish1_tag">🇲🇦 مغربي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1206,#100C04)">
+            <span style="position:relative;z-index:1">☕</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_drinks_dish2_name">قهوة عربية بالهيل</div>
+            <p class="cp-item-desc" data-i18n="mcp_drinks_dish2_desc">قهوة عربية محضرة على نار هادئة مع الهيل الأخضر والزعفران، تُقدم في دلّة نحاسية مع تمر مدينة.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٣٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_drinks_dish2_tag">🇸🇦 أصيلة</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A0818,#100510)">
+            <span style="position:relative;z-index:1">🥤</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_drinks_dish3_name">عصير رمان طازج</div>
+            <p class="cp-item-desc" data-i18n="mcp_drinks_dish3_desc">عصير الرمان الأحمر الطازج مُستخرج لحظياً مع الليمون وورد الطيف، مُبرّد وجاهز.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٥٥٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_drinks_dish3_tag">طازج</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEAFOOD PAGE -->
+  <div class="cat-page" id="page-seafood">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#081A2C,#050A18)">
+      <div class="cp-hero-emoji">🦞</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('seafood')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_seafood_title">المأكولات البحرية</div>
+        <div class="cp-sub" data-i18n="mcp_seafood_en">Seafood from the Arabian & Caspian Seas</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#081A2C,#05100E)">
+            <span style="position:relative;z-index:1">🦐</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_seafood_dish1_name">مشاوي بحر قزوين</div>
+            <p class="cp-item-desc" data-i18n="mcp_seafood_dish1_desc">أجود أسماك وثمار بحر قزوين مشوية على الفحم مع الأرز البخاري وتوابل الخليج العربي.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٣٢٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_seafood_dish1_tag">🌊 قزوين</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#0A1A18,#050E0C)">
+            <span style="position:relative;z-index:1">🐟</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_seafood_dish2_name">سمك مقلي بالثوم</div>
+            <p class="cp-item-desc" data-i18n="mcp_seafood_dish2_desc">سمك طازج مقلي في زيت نقي مع الثوم المحمص والليمون الحامض، مقدم مع الأرز والسلطة.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٢٢٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_seafood_dish2_tag">🇮🇶 عراقي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#0A1520,#050A14)">
+            <span style="position:relative;z-index:1">🦑</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_seafood_dish3_name">روبيان بالزبدة والثوم</div>
+            <p class="cp-item-desc" data-i18n="mcp_seafood_dish3_desc">روبيان ملكي طازج مطهو بالزبدة والثوم المحمص مع الأعشاب الطازجة وعصير الليمون.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٢٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_seafood_dish3_tag">🇰🇼 خليجي</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALADS PAGE -->
+  <div class="cat-page" id="page-salads">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#1A2A10,#0D1A08)">
+      <div class="cp-hero-emoji">🥗</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('salads')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_salads_title">السلطات</div>
+        <div class="cp-sub" data-i18n="mcp_salads_en">Salads, Greens & Fresh Plates</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A2A10,#0E1808)">
+            <span style="position:relative;z-index:1">🥗</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_salads_dish1_name">تبولة شامية أصيلة</div>
+            <p class="cp-item-desc" data-i18n="mcp_salads_dish1_desc">البقدونس الطازج مع البرغل الناعم، الطماطم والبصل الأخضر، مُتبَّل بزيت الزيتون البكر وعصير الليمون.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٧٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_salads_dish1_tag">🇱🇧 لبناني</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1A08,#0E0E05)">
+            <span style="position:relative;z-index:1">🥙</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_salads_dish2_name">فتوش لبناني</div>
+            <p class="cp-item-desc" data-i18n="mcp_salads_dish2_desc">سلطة الخضار الطازجة مع الخبز العربي المقرمش ودبس الرمان — لون وطعم لا يُقاوَمان.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٨٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_salads_dish2_tag">🇱🇧 لبناني</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1408,#0E0C06)">
+            <span style="position:relative;z-index:1">🧅</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_salads_dish3_name">سلطة المغرب العربي</div>
+            <p class="cp-item-desc" data-i18n="mcp_salads_dish3_desc">طماطم، فليفلة ولوز ومع التوابل الحارة المغربية وزيت الزيتون البكر — شمال أفريقيا في طبق.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٧٥٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_salads_dish3_tag">🇲🇦 مغربي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1408,#0E0C06)">
+            <span style="position:relative;z-index:1">🥗</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_salads_dish4_name">سلطة السيزر بالدجاج</div>
+            <p class="cp-item-desc" data-i18n="mcp_salads_dish4_desc">خس روماني طازج، صدور دجاج مشوية، جبنة بارميزان، خبز محمص (كروتون) وصلصة السيزر الكلاسيكية — طبق شهي ومتكامل.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٨٥٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_salads_dish4_tag">🇮🇹 إيطالي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#2A4B1A,#1A2F0E)">
+            <span style="position:relative;z-index:1">🥗🍗</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_salads_dish5_name">سلطة السيزر بالدجاج والكروتون</div>
+            <p class="cp-item-desc" data-i18n="mcp_salads_dish5_desc">خس روماني مقرمش، دجاج مشوي متبل، كروتون ذهبي مقرمش، جبنة بارميزان مبشورة، صلصة السيزر بالثوم والأنشوجة — وجبة كلاسيكية غنية بالنكهات.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٩٥٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_salads_dish5_tag">🇺🇸 أمريكي</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREAKFAST PAGE -->
+  <div class="cat-page" id="page-breakfast">
+    <div class="cp-hero" style="background:linear-gradient(160deg,#0A0705,#1A1A08,#0E0E04)">
+      <div class="cp-hero-emoji">🥚</div>
+      <div class="cp-hero-content">
+        <button class="cp-back" onclick="closeCatPage('breakfast')" data-i18n="mcp_back">العودة إلى القائمة</button>
+        <div class="cp-title" data-i18n="mcp_breakfast_title">الفطور</div>
+        <div class="cp-sub" data-i18n="mcp_breakfast_en">Royal Arabic Breakfast</div>
+      </div>
+    </div>
+    <div class="cp-items">
+      <div class="cp-items-grid">
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1604,#100E04)">
+            <span style="position:relative;z-index:1">🫘</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_breakfast_dish1_name">فول مدمس مصري</div>
+            <p class="cp-item-desc" data-i18n="mcp_breakfast_dish1_desc">فول مصري مطبوخ ببطء مع زيت الزيتون، الثوم والليمون، مزيّن بالبقدونس وحبات الطماطم الطازجة.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٧٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_breakfast_dish1_tag">🇪🇬 مصري</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1005,#100A04)">
+            <span style="position:relative;z-index:1">🥚</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_breakfast_dish2_name">بيض بالسمن العربي</div>
+            <p class="cp-item-desc" data-i18n="mcp_breakfast_dish2_desc">بيض مقلي بالسمن البلدي العربي الأصيل مع الملح والفلفل الأسود، مقدم مع خبز تنوري طازج.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٦٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_breakfast_dish2_tag">🇸🇦 خليجي</span>
+            </div>
+          </div>
+        </div>
+        <div class="cp-item">
+          <div class="cp-item-img" style="background:linear-gradient(135deg,#1A1808,#0E0E06)">
+            <span style="position:relative;z-index:1">🫓</span>
+            <div class="cp-item-halal" data-i18n="mcp_halal_badge">حلال ✓</div>
+          </div>
+          <div class="cp-item-body">
+            <div class="cp-item-name" data-i18n="mcp_breakfast_dish3_name">فطور ملكي كامل</div>
+            <p class="cp-item-desc" data-i18n="mcp_breakfast_dish3_desc">طبق الفطور الملكي: فول، حمص، بيض، جبن، مربى تين، سمن، عسل نحل طبيعي مع تشكيلة من الخبز.</p>
+            <div class="cp-item-footer">
+              <span class="cp-item-price">٢٢٠٠ ₽</span>
+              <span class="cp-item-tag" data-i18n="mcp_breakfast_dish3_tag">👑 ملكي</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-ar">مدار</div>
+        <div class="footer-brand-sub" data-i18n="mfooter_brand_sub">MADAR · MOSCOW</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html" data-i18n="mfooter_home">الرئيسية</a>
+        <a href="index.html#about" data-i18n="mfooter_story">قصتنا</a>
+        <a href="index.html#halal" data-i18n="mfooter_halal">حلال</a>
+        <a href="index.html#events" data-i18n="mfooter_events">الفعاليات</a>
+        <a href="index.html#reservation" data-i18n="mfooter_reserve">احجز طاولة</a>
+      </div>
+      <div class="footer-halal" data-i18n="mfooter_halal_badge">
+        ☾ حلال ١٠٠٪ مضمون
+      </div>
+    </div>
+    <div class="footer-copy" data-i18n="mfooter_copy">
+      © ٢٠٢٥ مطعم مدار موسكو — جميع الحقوق محفوظة · "موسكو لم تتذوق العرب هكذا من قبل"
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════
+     TRANSLATION ENGINE
+═══════════════════════════════ -->
+  <script src="/lang/i18n.js"></script>
+
+  <!-- ═══════════════════════════════
+     PAGE JAVASCRIPT
+═══════════════════════════════ -->
+  <script>
+    /* ── Loader ── */
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('out'), 2100);
+    });
+
+    /* ── Custom Cursor ── */
+    const cur = document.getElementById('cursor');
+    let mx = 0, my = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cur.style.left = mx + 'px';
+      cur.style.top = my + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+
+    const hoverEls = document.querySelectorAll('a, button, .cat-card, .banner-dish, .halal-card, .cp-item');
+    hoverEls.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+
+    /* ── Navbar compact on scroll ── */
+    const nb = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nb.classList.toggle('compact', window.scrollY > 70);
+    });
+
+    /* ── Scroll reveal ── */
+    const rvEls = document.querySelectorAll('.rv, .rv-l, .rv-r');
+    const rvObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.08 });
+    rvEls.forEach(el => rvObs.observe(el));
+
+    /* ── Category page transitions ── */
+    function openCatPage(cat) {
+      const page = document.getElementById('page-' + cat);
+      if (!page) return;
+      document.body.style.overflow = 'hidden';
+      page.classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          page.classList.add('visible');
+          page.scrollTop = 0;
+        });
+      });
+    }
+
+    function closeCatPage(cat) {
+      const page = document.getElementById('page-' + cat);
+      if (!page) return;
+      page.classList.remove('visible');
+      setTimeout(() => {
+        page.classList.remove('active');
+        document.body.style.overflow = '';
+      }, 500);
+    }
+
+    /* Close pages on Escape */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.cat-page.active').forEach(page => {
+          closeCatPage(page.id.replace('page-', ''));
+        });
+      }
+    });
+
+    /* ── Parallax on hero ── */
+    window.addEventListener('scroll', () => {
+      const scroll = window.scrollY;
+      const heroContent = document.querySelector('.hero-content');
+      const geoPattern = document.querySelector('.hero-geo-pattern');
+      if (heroContent && scroll < window.innerHeight) {
+        heroContent.style.transform = `translateY(${scroll * 0.18}px)`;
+      }
+      if (geoPattern && scroll < window.innerHeight) {
+        geoPattern.style.transform = `translateY(${scroll * 0.08}px)`;
+      }
+    });
+  </script>
+</body>
+
+</html>
