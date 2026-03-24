@@ -114,7 +114,7 @@ const MENU_DATA = {
           id: 's1', emoji: '🥗',
           name: { ar: 'تبولة', en: 'Tabbouleh', ru: 'Табуле' },
           desc: { ar: 'بقدونس طازج مع برغل وطماطم وزيت زيتون', en: 'Fresh parsley, bulgur, tomatoes & olive oil', ru: 'Свежая петрушка, булгур, помидоры и оливковое масло' },
-          price: 550, img: IMG('1512621776951-a57ef161980b'), badges: ['recommended'],
+          price: 550, img: 'photo-qr-menu/tabola.webp', badges: ['recommended'],
         },
         {
           id: 's2', emoji: '🥙',
