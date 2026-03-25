@@ -114,19 +114,19 @@ const MENU_DATA = {
           id: 's1', emoji: '🥗',
           name: { ar: 'تبولة', en: 'Tabbouleh', ru: 'Табуле' },
           desc: { ar: 'بقدونس طازج مع برغل وطماطم وزيت زيتون', en: 'Fresh parsley, bulgur, tomatoes & olive oil', ru: 'Свежая петрушка, булгур, помидоры и оливковое масло' },
-          price: 550, img: 'photo-qr-menu/tabola.webp', badges: ['recommended'],
+          price: 550, img: '../photo-qr-menu/tabola.webp', badges: ['recommended'],
         },
         {
           id: 's2', emoji: '🥙',
           name: { ar: 'فتوش', en: 'Fattoush', ru: 'Фатуш' },
           desc: { ar: 'خضار طازجة مع خبز مقرمش ودبس الرمان', en: 'Fresh vegetables with crispy bread & pomegranate molasses', ru: 'Свежие овощи с хрустящим хлебом и гранатовой патокой' },
-          price: 520, img: 'photo-qr-menu/Fattoush.webp', badges: [],
+          price: 520, img: '../photo-qr-menu/Fattoush.webp', badges: [],
         },
         {
           id: 's3', emoji: '🥗',
           name: { ar: 'سيزر بالدجاج', en: 'Caesar Salad (Chicken)', ru: 'Цезарь с курицей' },
           desc: { ar: 'خس روماني، دجاج مشوي، جبنة بارميزان، كروتون', en: 'Romaine, grilled chicken, Parmesan, croutons', ru: 'Ромен, куриная грудка, пармезан, гренки' },
-          price: 680, img: 'photo-qr-menu/sizer-salat.webp', badges: [],
+          price: 680, img: '../photo-qr-menu/sizer-salat.webp', badges: [],
         },
         {
           id: 's4', emoji: '🦐',
