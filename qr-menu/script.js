@@ -138,7 +138,7 @@ const MENU_DATA = {
           id: 's5', emoji: '🫒',
           name: { ar: 'سلطة يونانية', en: 'Greek Salad', ru: 'Греческий салат' },
           desc: { ar: 'خيار وطماطم وزيتون وجبنة فيتا', en: 'Cucumber, tomatoes, olives & feta cheese', ru: 'Огурец, помидоры, оливки и сыр фета' },
-          price: 580, img: 'photo-qr-menu/Greek-Salad-4.webp', badges: [],
+          price: 580, img: '/photo-qr-menu/Greek-Salad-4.webp', badges: [],
         },
         {
           id: 's6', emoji: '🥬',
@@ -169,43 +169,43 @@ const MENU_DATA = {
           id: 'a2', emoji: '🫘',
           name: { ar: 'حمص لبناني', en: 'Lebanese Hummus', ru: 'Ливанский хумус' },
           desc: { ar: 'حمص مع لحم مفروم ومكسرات', en: 'Hummus topped with spiced minced meat & nuts', ru: 'Хумус с пряным мясным фаршем и орехами' },
-          price: 680, img: 'photo-qr-menu/homos.webp', badges: [],
+          price: 680, img: '/photo-qr-menu/homos.webp', badges: [],
         },
         {
           id: 'a3', emoji: '🍆',
           name: { ar: 'متبل', en: 'Moutabal', ru: 'Мутаббаль' },
           desc: { ar: 'باذنجان مشوي مهروس مع طحينة وليمون', en: 'Smoky roasted aubergine with tahini & lemon', ru: 'Запечённый баклажан с тахиной и лимоном' },
-          price: 510, img: 'photo-qr-menu/moutabal.webp', badges: [],
+          price: 510, img: '/photo-qr-menu/moutabal.webp', badges: [],
         },
         {
           id: 'a4', emoji: '🌶️',
           name: { ar: 'محمرة', en: 'Muhammara', ru: 'Мухаммара' },
           desc: { ar: 'فليفلة حمراء مشوية مع رمان وبهارات', en: 'Roasted red peppers with pomegranate & spices', ru: 'Жареный красный перец с гранатом и специями' },
-          price: 490, img: 'photo-qr-menu/Muhammara.webp', badges: [],
+          price: 490, img: '/photo-qr-menu/Muhammara.webp', badges: [],
         },
         {
           id: 'a5', emoji: '🧆',
           name: { ar: 'فلافل', en: 'Falafel', ru: 'Фалафель' },
           desc: { ar: 'كرات الحمص المقلي مع صلصة الطحينة', en: 'Crispy chickpea fritters with tahini dip', ru: 'Хрустящие котлеты из нута с тахиной' },
-          price: 460, img: 'photo-qr-menu/falafel.webp', badges: ['recommended'],
+          price: 460, img: '/photo-qr-menu/falafel.webp', badges: ['recommended'],
         },
         {
           id: 'a6', emoji: '🥩',
           name: { ar: 'كبة', en: 'Kibbeh', ru: 'Кеббе' },
           desc: { ar: 'برغل ولحم مع بهارات الكبة الأصيلة', en: 'Bulgur & lamb with authentic kibbeh spices', ru: 'Булгур и баранина с аутентичными специями' },
-          price: 620, img: 'photo-qr-menu/keba2.webp', badges: [],
+          price: 620, img: '/photo-qr-menu/keba2.webp', badges: [],
         },
         {
           id: 'a7', emoji: '🫕',
           name: { ar: 'كبة حلبية', en: 'Kibbeh Halabiya', ru: 'Кеббе по-алеппски' },
           desc: { ar: 'كبة مقلية بالفستق وبهارات حلب', en: 'Fried kibbeh with Aleppo pistachios & spices', ru: 'Жареное кеббе с фисташками и специями Алеппо' },
-          price: 680, img: 'photo-qr-menu/keba.webp', badges: ['recommended'],
+          price: 680, img: '/photo-qr-menu/keba.webp', badges: ['recommended'],
         },
         {
           id: 'a8', emoji: '🍲',
           name: { ar: 'كبة لبنية', en: 'Kibbeh Labaniyeh', ru: 'Кеббе в йогурте' },
           desc: { ar: 'كبة مطبوخة في صلصة اللبن الكريمية', en: 'Kibbeh simmered in creamy yoghurt sauce', ru: 'Кеббе в сливочном йогуртовом соусе' },
-          price: 720, img: 'photo-qr-menu/keba-labanea.webp', badges: [],
+          price: 720, img: '/photo-qr-menu/keba-labanea.webp', badges: [],
         },
       ],
     },
@@ -218,37 +218,37 @@ const MENU_DATA = {
           id: 'm1', emoji: '🍚',
           name: { ar: 'كبسة', en: 'Kabsa', ru: 'Кабса' },
           desc: { ar: 'أرز بسمتي مع الدجاج والبهارات العربية الأصيلة', en: 'Basmati rice with chicken & authentic Arab spices', ru: 'Рис басмати с курицей и аутентичными специями' },
-          price: 980, img: 'photo-qr-menu/mendee.webp', badges: ['recommended'],
+          price: 980, img: '/photo-qr-menu/mendee.webp', badges: ['recommended'],
         },
         {
           id: 'm2', emoji: '🥩',
           name: { ar: 'مندي', en: 'Mandi', ru: 'Манди' },
           desc: { ar: 'لحم خروف مطبوخ على الفحم مع الأرز العطري', en: 'Slow-cooked lamb over charcoal with fragrant rice', ru: 'Ягнёнок медленного приготовления с ароматным рисом' },
-          price: 1450, img: 'photo-qr-menu/mende.webp', badges: ['recommended', 'chef'],
+          price: 1450, img: '/photo-qr-menu/mende.webp', badges: ['recommended', 'chef'],
         },
         {
           id: 'm3', emoji: '🫕',
           name: { ar: 'منسف', en: 'Mansaf', ru: 'Мансаф' },
           desc: { ar: 'طبق الأردن الوطني: خروف مع اللبنة والأرز', en: 'Jordan\'s national dish: lamb with jameed & rice', ru: 'Национальное блюдо Иордании: баранина с джамидом' },
-          price: 1680, img: 'photo-qr-menu/Mansaf.webp', badges: [],
+          price: 1680, img: '/photo-qr-menu/Mansaf.webp', badges: [],
         },
         {
           id: 'm4', emoji: '🍲',
           name: { ar: 'مقلوبة', en: 'Maqluba', ru: 'Маклюба' },
           desc: { ar: 'طبق فلسطيني بالدجاج والأرز والخضار', en: 'Palestinian upside-down rice with chicken & vegetables', ru: 'Палестинский рис с курицей и овощами' },
-          price: 1120, img: 'photo-qr-menu/Maqluba.webp', badges: [],
+          price: 1120, img: '/photo-qr-menu/Maqluba.webp', badges: [],
         },
         {
           id: 'm5', emoji: '🥬',
           name: { ar: 'ملوخية', en: 'Molokhia', ru: 'Малюхия' },
           desc: { ar: 'ملوخية خضراء مع الدجاج والثوم والكزبرة', en: 'Green jute leaves with chicken, garlic & coriander', ru: 'Зелёная джутовая мальва с курицей и чесноком' },
-          price: 890, img: 'photo-qr-menu/Molokhia.webp', badges: [],
+          price: 890, img: '/photo-qr-menu/Molokhia.webp', badges: [],
         },
         {
           id: 'm6', emoji: '🫘',
           name: { ar: 'بامية مع الأرز', en: 'Okra with Rice', ru: 'Бамия с рисом' },
           desc: { ar: 'بامية مطبوخة مع اللحم والطماطم', en: 'Okra stewed with meat & tomatoes over rice', ru: 'Бамия тушёная с мясом и томатами на рисе' },
-          price: 850, img: 'photo-qr-menu/bamea.webp', badges: [],
+          price: 850, img: '/photo-qr-menu/bamea.webp', badges: [],
         },
 
       ],
@@ -262,13 +262,13 @@ const MENU_DATA = {
           id: 'g1', emoji: '🍢',
           name: { ar: 'شيش طاووق', en: 'Shish Tawook', ru: 'Шиш-тавук' },
           desc: { ar: 'دجاج متبل مشوي على الفحم مع صلصة التوم', en: 'Marinated chicken on charcoal with garlic sauce', ru: 'Маринованная курица на угле с чесночным соусом' },
-          price: 980, img: 'photo-qr-menu/kabab.webp', badges: ['recommended'],
+          price: 980, img: '/photo-qr-menu/kabab.webp', badges: ['recommended'],
         },
         {
           id: 'g2', emoji: '🥩',
           name: { ar: 'كباب ضاني', en: 'Lamb Kebab', ru: 'Кебаб из баранины' },
           desc: { ar: 'لحم ضاني مفروم بالبهارات على الفحم', en: 'Spiced minced lamb skewers over charcoal', ru: 'Рубленая баранина со специями на углях' },
-          price: 1150, img: 'photo-qr-menu/kababb.webp', badges: ['recommended'],
+          price: 1150, img: '/photo-qr-menu/kababb.webp', badges: ['recommended'],
         },
         {
           id: 'g3', emoji: '🔥',
@@ -306,7 +306,7 @@ const MENU_DATA = {
             ru: 'Свежий лимон с холодной водой'
           },
           price: 380,
-          img: 'photo-qr-menu/Lemon-Mint.webp',
+          img: '/photo-qr-menu/Lemon-Mint.webp',
           badges: ['recommended']
         },
 
@@ -320,7 +320,7 @@ const MENU_DATA = {
             ru: 'Натуральный сок, богатый витаминами'
           },
           price: 420,
-          img: 'photo-qr-menu/Orangejuice.webp',
+          img: '/photo-qr-menu/Orangejuice.webp',
           badges: []
         },
 
@@ -334,7 +334,7 @@ const MENU_DATA = {
             ru: 'Освежающий фруктовый микс'
           },
           price: 380,
-          img: 'photo-qr-menu/mango-juice.webp',
+          img: '/photo-qr-menu/mango-juice.webp',
           badges: ['recommended']
         },
 
@@ -348,7 +348,7 @@ const MENU_DATA = {
             ru: 'Ассортимент прохладительных напитков'
           },
           price: 300,
-          img: 'photo-qr-menu/soft-drink.jpg',
+          img: '/photo-qr-menu/soft-drink.jpg',
           badges: []
         },
 
@@ -362,7 +362,7 @@ const MENU_DATA = {
             ru: 'Освежающий ягодный напиток'
           },
           price: 180,
-          img: 'photo-qr-menu/mors.webp',
+          img: '/photo-qr-menu/mors.webp',
           badges: []
         },
 
@@ -376,7 +376,7 @@ const MENU_DATA = {
             ru: 'Фрукты с мятой для очищения организма'
           },
           price: 480,
-          img: 'photo-qr-menu/detox.jpg',
+          img: '/photo-qr-menu/detox.jpg',
           badges: ['recommended']
         }
       ],
@@ -386,10 +386,10 @@ const MENU_DATA = {
       icon: '☕',
       name: { ar: 'المشروبات الساخنة', en: 'Hot Drinks', ru: 'Горячие напитки' },
       items: [
-        { id: 'd1', emoji: '🫖', name: { ar: 'قهوة عربية', en: 'Arabic Coffee', ru: 'Арабский кофе' }, desc: { ar: 'قهوة عربية أصيلة بالهيل والزعفران', en: 'Authentic Arabic coffee with cardamom & saffron', ru: 'Аутентичный арабский кофе с кардамоном' }, price: 220, img: 'photo-qr-menu/arabiccoffe.webp', badges: ['recommended'] },
-        { id: 'd2', emoji: '☕', name: { ar: 'إسبريسو', en: 'Espresso', ru: 'Эспрессо' }, desc: { ar: 'إسبريسو إيطالي مركز', en: 'Concentrated Italian espresso', ru: 'Концентрированный итальянский эспрессо' }, price: 180, img: 'photo-qr-menu/Espresso.webp', badges: [] },
-        { id: 'd3', emoji: '☕', name: { ar: 'كابتشينو', en: 'Cappuccino', ru: 'Капучино' }, desc: { ar: 'كابتشينو كريمي بالحليب المحلوب', en: 'Creamy cappuccino with steamed milk', ru: 'Кремовое капучино с паровым молоком' }, price: 260, img: 'photo-qr-menu/Cappuccino.webp', badges: [] },
-        { id: 'd4', emoji: '🍵', name: { ar: 'شاي', en: 'Tea', ru: 'Чай' }, desc: { ar: 'شاي أحمر أو أخضر مع نعناع', en: 'Black or green tea with mint', ru: 'Чёрный или зелёный чай с мятой' }, price: 160, img: 'photo-qr-menu/Tea.webp', badges: [] },
+        { id: 'd1', emoji: '🫖', name: { ar: 'قهوة عربية', en: 'Arabic Coffee', ru: 'Арабский кофе' }, desc: { ar: 'قهوة عربية أصيلة بالهيل والزعفران', en: 'Authentic Arabic coffee with cardamom & saffron', ru: 'Аутентичный арабский кофе с кардамоном' }, price: 220, img: '/photo-qr-menu/arabiccoffe.webp', badges: ['recommended'] },
+        { id: 'd2', emoji: '☕', name: { ar: 'إسبريسو', en: 'Espresso', ru: 'Эспрессо' }, desc: { ar: 'إسبريسو إيطالي مركز', en: 'Concentrated Italian espresso', ru: 'Концентрированный итальянский эспрессо' }, price: 180, img: '/photo-qr-menu/Espresso.webp', badges: [] },
+        { id: 'd3', emoji: '☕', name: { ar: 'كابتشينو', en: 'Cappuccino', ru: 'Капучино' }, desc: { ar: 'كابتشينو كريمي بالحليب المحلوب', en: 'Creamy cappuccino with steamed milk', ru: 'Кремовое капучино с паровым молоком' }, price: 260, img: '/photo-qr-menu/Cappuccino.webp', badges: [] },
+        { id: 'd4', emoji: '🍵', name: { ar: 'شاي', en: 'Tea', ru: 'Чай' }, desc: { ar: 'شاي أحمر أو أخضر مع نعناع', en: 'Black or green tea with mint', ru: 'Чёрный или зелёный чай с мятой' }, price: 160, img: '/photo-qr-menu/Tea.webp', badges: [] },
       ],
     },
   ],
@@ -403,7 +403,7 @@ const CHEFS_PICKS = ['m2', 'g3', 'a7', 's4']; // item IDs marked as chef special
 const DISH_OF_DAY = {
   id: 'm2', // references MENU_DATA item
   emoji: '🥩',
-  img: IMG('1414235077428-338989a2e8c0', 600, 400),
+  img: ('/photo-qr-menu/Mansaf.webp', 600, 400),
 };
 
 const OFFERS = [
