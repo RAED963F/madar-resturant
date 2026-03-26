@@ -154,30 +154,14 @@ const MENU_DATA = {
           desc: { ar: 'خس روماني، دجاج مشوي، جبنة بارميزان، كروتون', en: 'Romaine, grilled chicken, Parmesan, croutons', ru: 'Ромен, куриная грудка, пармезан, гренки' },
           price: 680, img: '/photo-qr-menu/sizer-salat.webp', badges: [],
         },
-        {
-          id: 's4', emoji: '🦐',
-          name: { ar: 'سيزر بالروبيان', en: 'Caesar Salad (Shrimp)', ru: 'Цезарь с креветками' },
-          desc: { ar: 'خس روماني مع روبيان مشوي وجبنة بارميزان', en: 'Romaine with grilled shrimp & Parmesan', ru: 'Ромен с жареными креветками и пармезаном' },
-          price: 850, img: IMG('1551218808-84a27ca84a7e'), badges: ['recommended'],
-        },
+        
         {
           id: 's5', emoji: '🫒',
           name: { ar: 'سلطة يونانية', en: 'Greek Salad', ru: 'Греческий салат' },
           desc: { ar: 'خيار وطماطم وزيتون وجبنة فيتا', en: 'Cucumber, tomatoes, olives & feta cheese', ru: 'Огурец, помидоры, оливки и сыр фета' },
           price: 580, img: '/photo-qr-menu/Greek-Salad-4.webp', badges: [],
         },
-        {
-          id: 's6', emoji: '🥬',
-          name: { ar: 'كولسلو', en: 'Coleslaw', ru: 'Коул Слоу' },
-          desc: { ar: 'ملفوف طازج مع جزر وصلصة المايونيز', en: 'Fresh cabbage with carrot & creamy dressing', ru: 'Свежая капуста с морковью и сливочной заправкой' },
-          price: 420, img: IMG('1512621776951-a57ef161980b'), badges: [],
-        },
-        {
-          id: 's7', emoji: '🫚',
-          name: { ar: 'سلطة الشمندر', en: 'Beetroot Salad', ru: 'Салат из свёклы' },
-          desc: { ar: 'شمندر مشوي مع جوز وجبنة بارميزان', en: 'Roasted beetroot with walnuts & Parmesan', ru: 'Запечённая свёкла с грецкими орехами и пармезаном' },
-          price: 490, img: IMG('1546069901-ba9599a7e63c'), badges: [],
-        },
+        
       ],
     },
 
@@ -386,12 +370,7 @@ const MENU_DATA = {
           desc: { ar: 'دجاج كامل مشوي بالليمون والأعشاب', en: 'Whole chicken grilled with lemon & herbs', ru: 'Целая курица с лимоном и травами на гриле' },
           price: 1280, img: IMG('1601050690597-df0568f70950'), badges: [],
         },
-        {
-          id: 'g5', emoji: '🍡',
-          name: { ar: 'كفتة', en: 'Kofta', ru: 'Кофта' },
-          desc: { ar: 'لحم مفروم بالبهارات والبصل والبقدونس', en: 'Minced meat with spices, onion & parsley', ru: 'Рубленое мясо с приправами, луком и петрушкой' },
-          price: 980, img: IMG('1555939594-58d7cb561d38'), badges: [],
-        },
+        
       ],
     },
 
@@ -419,13 +398,7 @@ const MENU_DATA = {
           desc: { ar: 'مزيج منعش من الفواكه الطازجة', en: 'Refreshing fruit blend', ru: 'Освежающий фруктовый микс' },
           price: 380, img: '/photo-qr-menu/mango-juice.webp', badges: ['recommended'],
         },
-        {
-          id: 'cd4', emoji: '🥤',
-          name: { ar: 'مشروبات غازية', en: 'Soft Drinks', ru: 'Газированные напитки' },
-          desc: { ar: 'تشكيلة من المشروبات الغازية الباردة', en: 'Selection of chilled soft drinks', ru: 'Ассортимент прохладительных напитков' },
-          /* BUG FIX ②: was soft-drink.jpg (404) → safe Unsplash fallback */
-          price: 300, img: IMG('1497935586351-b67a49e012bf'), badges: [],
-        },
+        
         {
           id: 'cd5', emoji: '🍓',
           name: { ar: 'مورس (عصير توت)', en: 'Berry Juice (Mors)', ru: 'Морс' },
