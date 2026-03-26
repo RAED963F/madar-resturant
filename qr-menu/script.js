@@ -114,7 +114,7 @@ const MENU_DATA = {
           id: 's1', emoji: '🥗',
           name: { ar: 'تبولة', en: 'Tabbouleh', ru: 'Табуле' },
           desc: { ar: 'بقدونس طازج مع برغل وطماطم وزيت زيتون', en: 'Fresh parsley, bulgur, tomatoes & olive oil', ru: 'Свежая петрушка, булгур, помидоры и оливковое масло' },
-          price: 550, img: '/photo-qr-menu/tabola.webp', badges: ['recommended'],
+          price: 610, img: '/photo-qr-menu/tabola.webp', badges: ['recommended'],
         },
         {
           id: 's2', emoji: '🥙',
@@ -250,7 +250,110 @@ const MENU_DATA = {
           desc: { ar: 'بامية مطبوخة مع اللحم والطماطم', en: 'Okra stewed with meat & tomatoes over rice', ru: 'Бамия тушёная с мясом и томатами на рисе' },
           price: 850, img: '/photo-qr-menu/bamea.webp', badges: [],
         },
-
+        {
+          id: 'm7', emoji: '🫘',
+          name: { ar: 'بلوف أوزبكي تقليدي', en: 'Traditional Uzbek Plov', ru: 'Плов узбекский' },
+          desc: {
+            ar: 'بلوف مع أرز بني (محصود يدوياً من أوزغين) مع لحم العجل ولحم الضأن والجزر',
+            en: 'Plov with hand-harvested brown rice from Uzgen, veal, lamb, and carrots',
+            ru: 'Плов с бурым рисом, собранным вручную в Узгене, телятиной, мясом ягненка и морковью'
+          },
+          weight: 350,
+          price: 860,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm8', emoji: '🫘',
+          name: { ar: 'بلوف الأعراس', en: 'Wedding Plov', ru: 'Свадебный плов' },
+          desc: {
+            ar: 'بلوف مع أرز طشقندي، لحم عجل، لحم ضأن وجزر',
+            en: 'Plov with Tashkent rice, veal, lamb, and carrots',
+            ru: 'Плов с ташкентским рисом, телятиной، мясом ягненка и морковью'
+          },
+          weight: 350,
+          price: 850,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm9', emoji: '🫘',
+          name: { ar: 'بلوف احتفالي', en: 'Festive Plov', ru: 'Праздничный плов' },
+          desc: {
+            ar: 'بلوف مع أرز طشقندي، لحم عجل، لحم ضأن، كازي، بيض السمان والجزر (يمكن إضافة الزبيب حسب الرغبة)',
+            en: 'Plov with Tashkent rice, veal, lamb, kazy sausage, quail eggs, and carrots (raisins optional)',
+            ru: 'Плов с ташкентским рисом, телятиной، мясом ягненка، казы، перепелиными яйцами и морковью (по желанию добавляется изюм)'
+          },
+          weight: 350,
+          price: 875,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm10', emoji: '🍛',
+          name: { ar: 'أرز برياني', en: 'Biryani Rice', ru: 'Рис бирьяни' },
+          desc: {
+            ar: 'بلوف مع خضار، ودجاج أو لحم ضأن حسب الاختيار',
+            en: 'Plov with vegetables and a choice of chicken or lamb',
+            ru: 'Плов с овощами، курицей или бараниной на выбор'
+          },
+          weight: 350,
+          price: 1150,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm11', emoji: '🍖',
+          name: { ar: 'مندي لحم', en: 'Meat Mandi', ru: 'Манди мясной' },
+          desc: {
+            ar: 'لحم ضأن مشوي على العظم مع أرز مدخن ومكسرات',
+            en: 'Roasted lamb on the bone with smoked rice and nuts',
+            ru: 'Запечённое мясо баранины на кости с копчёным рисом и орехами'
+          },
+          weight: 350,
+          price: 1200,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm12', emoji: '🍗',
+          name: { ar: 'مندي دجاج', en: 'Chicken Mandi', ru: 'Манди с курицей' },
+          desc: {
+            ar: 'دجاج مشوي مع أرز متبل ومكسرات',
+            en: 'Roasted chicken with spiced rice and nuts',
+            ru: 'Курица, запечённая с пряным рисом и орешками'
+          },
+          weight: 350,
+          price: 1100,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm13', emoji: '🍚',
+          name: { ar: 'أرز بالزعفران', en: 'Saffron Rice', ru: 'Рис с шафраном' },
+          desc: {
+            ar: 'أرز بسمتي مع الليمون والزعفران',
+            en: 'Basmati rice with lemon and saffron',
+            ru: 'Рис басмати с добавлением лимона и шафрана'
+          },
+          weight: 250,
+          price: 500,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        },
+        {
+          id: 'm14', emoji: '🍚',
+          name: { ar: 'أرز بالكمون (زيرا)', en: 'Cumin Rice (Zira Rice)', ru: 'Зира рис' },
+          desc: {
+            ar: 'أرز بسمتي مع بهار الكمون',
+            en: 'Basmati rice with cumin spice',
+            ru: 'Рис басмати со специей зира'
+          },
+          weight: 250,
+          price: 500,
+          img: '/photo-qr-menu/bamea.webp',
+          badges: [],
+        }
       ],
     },
     {
@@ -482,6 +585,13 @@ function getCartItem(id) { return state.cart.find(i => i.id === id); }
 function cartTotal() { return state.cart.reduce((s, i) => s + i.price * i.qty, 0); }
 function cartCount() { return state.cart.reduce((s, i) => s + i.qty, 0); }
 
+function formatWeight(w) {
+  if (!w) return '';
+  if (state.lang === 'ar') return `${w} غ`;
+  if (state.lang === 'ru') return `${w} г`;
+  return `${w} g`;
+}
+
 /* ═══════════════════════════════════════════════════════════
    6. SPLASH
 ═══════════════════════════════════════════════════════════ */
@@ -681,7 +791,10 @@ function buildMenuCard(item) {
       : `<div class="card-img-placeholder">${item.emoji}</div>`}
     </div>
     <div class="card-body">
-      <div class="card-name">${loc(item.name)}</div>
+      <div class="card-name">
+        ${loc(item.name)}
+        ${item.weight ? `<span class="card-weight">(${formatWeight(item.weight)})</span>` : ''}
+      </div>
       <div class="card-desc">${loc(item.desc)}</div>
       <div class="card-footer">
         <span class="card-price">${formatPrice(item.price)}</span>
