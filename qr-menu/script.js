@@ -257,13 +257,13 @@ const MENU_DATA = {
           id: 'm1', emoji: '🍚',
           name: { ar: 'كبسة', en: 'Kabsa', ru: 'Кабса' },
           desc: { ar: 'أرز بسمتي مع الدجاج والبهارات العربية الأصيلة', en: 'Basmati rice with chicken & authentic Arab spices', ru: 'Рис басмати с курицей и аутентичными специями' },
-          price: 980, img: '/photo-qr-menu/mendee.webp', badges: ['recommended'],
+          price: 980, img: '/photo-qr-menu/kabsa.webp', badges: ['recommended'],
         },
         {
           id: 'm2', emoji: '🥩',
           name: { ar: 'مندي', en: 'Mandi', ru: 'Манди' },
           desc: { ar: 'لحم خروف مطبوخ على الفحم مع الأرز العطري', en: 'Slow-cooked lamb over charcoal with fragrant rice', ru: 'Ягнёнок медленного приготовления с ароматным рисом' },
-          price: 1450, img: '/photo-qr-menu/mende.webp', badges: ['recommended', 'chef'],
+          price: 1450, img: '/photo-qr-menu/medee.webp', badges: ['recommended', 'chef'],
         },
         {
           id: 'm3', emoji: '🫕',
@@ -398,7 +398,7 @@ const MENU_DATA = {
           desc: { ar: 'مزيج منعش من الفواكه الطازجة', en: 'Refreshing fruit blend', ru: 'Освежающий фруктовый микс' },
           price: 380, img: '/photo-qr-menu/mango-juice.webp', badges: ['recommended'],
         },
-        
+
         {
           id: 'cd5', emoji: '🍓',
           name: { ar: 'مورس (عصير توت)', en: 'Berry Juice (Mors)', ru: 'Морс' },
