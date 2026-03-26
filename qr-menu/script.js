@@ -358,18 +358,7 @@ const MENU_DATA = {
           desc: { ar: 'لحم ضاني مفروم بالبهارات على الفحم', en: 'Spiced minced lamb skewers over charcoal', ru: 'Рубленая баранина со специями на углях' },
           price: 1150, img: '/photo-qr-menu/kababb.webp', badges: ['recommended'],
         },
-        {
-          id: 'g3', emoji: '🔥',
-          name: { ar: 'مشاوي مشكلة', en: 'Mixed Grill', ru: 'Ассорти гриль' },
-          desc: { ar: 'تشكيلة من الدجاج والكباب والكفتة المشوية', en: 'Assorted grilled chicken, kebab & kofta', ru: 'Ассорти из курицы, кебаба и кофты на гриле' },
-          price: 1650, img: IMG('1529042355636-0e759cfe3b6d'), badges: ['recommended', 'chef'],
-        },
-        {
-          id: 'g4', emoji: '🍗',
-          name: { ar: 'دجاج مشوي', en: 'Grilled Chicken', ru: 'Курица на гриле' },
-          desc: { ar: 'دجاج كامل مشوي بالليمون والأعشاب', en: 'Whole chicken grilled with lemon & herbs', ru: 'Целая курица с лимоном и травами на гриле' },
-          price: 1280, img: IMG('1601050690597-df0568f70950'), badges: [],
-        },
+
         
       ],
     },
