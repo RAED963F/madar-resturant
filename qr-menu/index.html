@@ -126,8 +126,10 @@
     hidden>
     <div class="overlay-panel gallery-panel">
       <div class="overlay-header">
+<!-- -->
         <h2 data-i18n="gallery_title">معرض الصور</h2>
         <button class="btn-close" id="gallery-close" aria-label="Close">✕</button>
+
       </div>
       <div class="gallery-grid" id="gallery-grid"><!-- JS --></div>
     </div>
@@ -185,6 +187,14 @@
       <span class="fc-total" id="fc-total">0 ₽</span>
     </button>
   </div>
+
+  <div id="size-modal" hidden>
+  <div class="size-box">
+    <h3 id="size-title"></h3>
+    <div id="size-options"></div>
+    <button onclick="closeSizeModal()">✕</button>
+  </div>
+</div>
 
   <script src="/qr-menu/script.js"></script>
 </body>
