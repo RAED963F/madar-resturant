@@ -123,6 +123,7 @@ a { color:inherit; text-decoration:none; }
   text-align: center;
   animation: fadeUp 0.8s var(--ease) both;
 }
+/*
 .splash-logo-ar {
   font-family: var(--f-arabic);
   font-size: 3.8rem;
@@ -131,14 +132,52 @@ a { color:inherit; text-decoration:none; }
   line-height: 1;
   text-shadow: 0 0 40px var(--c-gold-glow);
 }
+  */
+.splash-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px; /* مسافة بين الروسي والباقي */
+}
+
+/* الروسي */
+.splash-logo-ru {
+  font-family: var(--f-display);
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: var(--c-gold);
+  line-height: 1.2;
+  text-shadow: 0 0 40px var(--c-gold-glow);
+}
+
+/* الحاوية السفلية */
+.splash-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 40 40px;
+    gap: 80px; /* 👈 هذا أهم سطر */
+
+}
+
+/* الإنكليزي */
 .splash-logo-en {
   font-family: var(--f-display);
-  font-size: 0.75rem;
-  letter-spacing: 6px;
+  font-size: 0.9rem;
+  letter-spacing: 8px;
   color: var(--c-muted);
-  text-transform: uppercase;
-  margin-top: 4px;
 }
+
+/* العربي */
+.splash-logo-ar {
+  font-family: var(--f-display);
+  font-size: 0.9rem;
+  letter-spacing: 8px;
+  color: var(--c-muted);
+  direction: rtl;
+}
+
+
 .splash-sub {
   font-size: 0.82rem;
   letter-spacing: 3px;
@@ -1269,4 +1308,63 @@ body.lang-ar .card-weight {
   display: flex;
   justify-content: space-between;
   opacity: 0.9;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.lang-btn img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.lang-btn:hover img {
+  transform: scale(1.1);
+}
+
+.lang-btn.active img {
+  border: 2px solid #000;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 22px;
+  float: right;
+}
+
+.old {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-left: 8px;
 }

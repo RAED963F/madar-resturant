@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ru" dir="rtl">
 
 <head>
   <meta charset="UTF-8" />
@@ -22,10 +22,16 @@
     <div class="splash-ring splash-ring-1"></div>
     <div class="splash-ring splash-ring-2"></div>
     <div class="splash-logo-wrap">
-      <div class="splash-logo-ar">مدار</div>
-      <div class="splash-logo-en">MADAR</div>
+      <div class="splash-logo-ru">Мадар</div>
+
+      <div class="splash-bottom">
+        <div class="splash-logo-en">MADAR</div>
+        <div class="splash-logo-ar">مدار</div>
+      </div>
     </div>
+    <!-- 
     <div class="splash-sub" id="splash-sub">سفارة المطبخ العربي</div>
+    -->
   </div>
 
   <!-- ══ STICKY HEADER ══ -->
@@ -40,9 +46,17 @@
 
       <!-- Language switcher -->
       <div class="lang-switcher" role="group" aria-label="Language selection">
-        <button class="lang-btn active" data-lang="ar" aria-pressed="true">ع</button>
-        <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        <button class="lang-btn" data-lang="ru" aria-pressed="false">РУ</button>
+        <button class="lang-btn " data-lang="ar" aria-pressed="true">
+          <img src="https://flagcdn.com/w40/sa.png" alt="Arabic">
+        </button>
+
+        <button class="lang-btn" data-lang="en" aria-pressed="false">
+          <img src="https://flagcdn.com/w40/gb.png" alt="English">
+        </button>
+
+        <button class="lang-btn active" data-lang="ru" aria-pressed="false">
+          <img src="https://flagcdn.com/w40/ru.png" alt="Russian">
+        </button>
       </div>
 
       <!-- Cart button -->
@@ -98,7 +112,7 @@
       <div class="specials-row" id="specials-row">       </div>
     </section>
  -->
-    
+
     <!-- Dish of the Day -->
     <section class="section dotd-section" aria-label="Dish of the day">
       <div id="dotd-card"><!-- JS --></div>
@@ -126,7 +140,7 @@
     hidden>
     <div class="overlay-panel gallery-panel">
       <div class="overlay-header">
-<!-- -->
+        <!-- -->
         <h2 data-i18n="gallery_title">معرض الصور</h2>
         <button class="btn-close" id="gallery-close" aria-label="Close">✕</button>
 
@@ -189,10 +203,21 @@
   </div>
 
   <div id="size-modal" hidden>
-  <div class="size-box">
-    <h3 id="size-title"></h3>
-    <div id="size-options"></div>
-    <button onclick="closeSizeModal()">✕</button>
+    <div class="size-box">
+      <h3 id="size-title"></h3>
+      <div id="size-options"></div>
+      <button onclick="closeSizeModal()">✕</button>
+    </div>
+  </div>
+
+  <div id="offer-modal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">×</span>
+
+    <h2 id="modal-title"></h2>
+    <p id="modal-desc"></p>
+
+    <div class="modal-price" id="modal-price"></div>
   </div>
 </div>
 

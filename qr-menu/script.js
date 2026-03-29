@@ -84,7 +84,7 @@ const TRANSLATIONS = {
   },
   ru: {
     hero_eyebrow: 'Посольство арабской кухни в Москве',
-    hero_title: 'Незабываемый гастрономический опыт',
+    hero_title: 'гастрономический центер',
     hero_sub: 'Листайте меню и выбирайте любимые блюда',
     halal: 'Халяль 100%',
     five_star: '5 звёзд',
@@ -1265,30 +1265,71 @@ const DISH_OF_DAY = {
 };
 
 const OFFERS = [
-  {
-    id: 'o1',
-    emoji: '🔥',
-    tag: { ar: 'عرض خاص', en: 'Special Deal', ru: 'Спецпредложение' },
-    name: { ar: 'كومبو المشاوي لشخصين', en: 'Grill Combo for 2', ru: 'Гриль-комбо на двоих' },
-    desc: { ar: 'مشاوي مشكلة + خبز + مشروبين', en: 'Mixed grill + bread + 2 drinks', ru: 'Ассорти гриль + хлеб + 2 напитка' },
-    price: 2400, oldPrice: 3200,
+{
+  id: 'o1',
+  emoji: '🍳',
+  tag: { ar: 'عرض خاص', en: 'Special Deal', ru: 'Спецпредложение' },
+  name: { ar: 'فطور عربي', en: 'Arabic Breakfast', ru: 'Арабский завтрак' },
+
+  desc: {
+    ar: 'فطور متكامل',
+    en: 'Full breakfast',
+    ru: 'Полный завтрак'
   },
+
+  details: {
+    ar: 'فطور عربي تقليدي يشمل خبز، شكشوكة، خضار، زعتر، فلافل، لبنة، حمص، جبنة، مربى أو عسل أو حلاوة، محمرة، زيتون',
+    en: 'Traditional Arabic breakfast including bread, shakshouka, vegetables, zaatar, falafel, labneh, hummus, cheese, jam or honey or halva, muhammara, olives',
+    ru: 'Традиционный арабский завтрак: пита, шакшука, овощи, заатар, фалафель, лабне, хумус, сыр, варенье или мёд или халва, мухаммара, оливки'
+  },
+
+  price: 3500,
+  oldPrice: 4900
+},
+
   {
     id: 'o2',
-    emoji: '⭐',
-    tag: { ar: 'الأكثر طلباً', en: 'Best Seller', ru: 'Хит продаж' },
-    name: { ar: 'كومبو العائلة', en: 'Family Combo', ru: 'Семейное комбо' },
-    desc: { ar: 'مندي كامل + سلطة + 4 مشروبات', en: 'Full mandi + salad + 4 drinks', ru: 'Полный манди + салат + 4 напитка' },
-    price: 4800, oldPrice: 6500,
+    emoji: '👨‍🍳',
+    tag: {
+      ar: 'اختيار الشيف',
+      en: 'Chef’s Choice',
+      ru: 'Выбор шефа'
+    },
+    name: {
+      ar: 'أطباق اليوم من الشيف',
+      en: 'Today’s dishes from the chef',
+      ru: 'Блюда дня от шефа'
+    },
+    desc: {
+      ar: 'أطباق يومية مميزة حسب اختيار الشيف',
+      en: 'Daily special dishes selected by the chef',
+      ru: 'Ежедневные блюда от шеф-повара'
+    },
+    price: 1850,
+    oldPrice: 2500
   },
+
   {
     id: 'o3',
     emoji: '🎁',
-    tag: { ar: 'وجبة طالب', en: 'Student Meal', ru: 'Студенческий набор' },
-    name: { ar: 'وجبة الطالب السريعة', en: 'Quick Student Meal', ru: 'Быстрый студенческий обед' },
-    desc: { ar: 'كباب + خبز + مشروب', en: 'Kebab + bread + 1 drink', ru: 'Кебаб + хлеб + напиток' },
-    price: 890, oldPrice: 1200,
-  },
+    tag: {
+      ar: 'خصم',
+      en: 'Discount',
+      ru: 'Скидка'
+    },
+    name: {
+      ar: 'خصم 20٪ على كامل المنيو',
+      en: '20% off the entire menu',
+      ru: 'Скидка 20% на всё меню'
+    },
+    desc: {
+      ar: 'من الساعة 12:00 حتى 15:00',
+      en: 'From 12:00 to 15:00',
+      ru: 'С 12:00 до 15:00'
+    },
+    price: null,
+    oldPrice: null
+  }
 ];
 
 const GALLERY_ITEMS = [
@@ -1508,6 +1549,7 @@ function renderOffers() {
   OFFERS.forEach(offer => {
     const card = document.createElement('div');
     card.className = 'offer-card';
+    card.onclick = () => openOffer(offer);
     card.innerHTML = `
       <span class="offer-emoji">${offer.emoji}</span>
       <span class="offer-tag">${loc(offer.tag)}</span>
@@ -1519,6 +1561,26 @@ function renderOffers() {
       </div>`;
     row.appendChild(card);
   });
+}
+
+function openOffer(item) {
+  const lang = currentLang; // نفس نظامك
+
+  document.getElementById('modal-title').textContent = item.name[lang];
+  document.getElementById('modal-desc').textContent = item.details[lang];
+
+  if (item.price) {
+    document.getElementById('modal-price').innerHTML =
+      `${item.price} ₽ ${item.oldPrice ? `<span class="old">${item.oldPrice} ₽</span>` : ''}`;
+  } else {
+    document.getElementById('modal-price').innerHTML = '';
+  }
+
+  document.getElementById('offer-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('offer-modal').classList.add('hidden');
 }
 
 /* ═══════════════════════════════════════════════════════════
