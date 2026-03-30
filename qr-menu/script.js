@@ -483,7 +483,7 @@ const MENU_DATA = {
           emoji: '🥗',
           name: { ar: 'تبولة', en: 'Tabbouleh', ru: 'Табуле' },
           desc: { ar: 'بقدونس طازج مع برغل وطماطم وزيت زيتون', en: 'Fresh parsley, bulgur, tomatoes & olive oil', ru: 'Свежая петрушка, булгур, помидоры и оливковое масло' },
-          options: [{ label: '250 g', price: 610 }],
+          options: [{ label: '250 g', price:750 }],
           img: '/photo-qr-menu/salads/tabola.webp'
         }
 
@@ -702,44 +702,46 @@ const MENU_DATA = {
           id: 'a1', emoji: '🫘',
           name: { ar: 'حمص', en: 'Hummus', ru: 'Хумус' },
           desc: { ar: 'حمص كريمي مع طحينة وزيت زيتون ولمسة بابريكا', en: 'Creamy hummus with tahini, olive oil and paprika', ru: 'Кремовый хумус с тахини, оливковым маслом и паприкой' },
-          weight: 200, price: 530, img: '/photo-qr-menu/homos.webp', badges: ['recommended'],
+          weight: 200, price: 630, img: '/photo-qr-menu/homos.webp', badges: ['recommended'],
         },
         {
           id: 'a2', emoji: '🫘',
           name: { ar: 'حمص لبناني', en: 'Lebanese Hummus', ru: 'Хумус по-ливански' },
           desc: { ar: 'حمص مع لحم مفروم متبل ومكسرات', en: 'Hummus topped with spiced minced meat and nuts', ru: 'Хумус с пряным мясным фаршем и орехами' },
-          weight: 230, price: 580, img: '/photo-qr-menu/homos-with.webp', badges: [],
+          weight: 230, price: 680, img: '/photo-qr-menu/homos-with.webp', badges: [],
         },
         {
           id: 'a3', emoji: '🍆',
           name: { ar: 'متبل', en: 'Moutabal', ru: 'Мутабаль' },
           desc: { ar: 'باذنجان مشوي مهروس مع طحينة وعصير ليمون', en: 'Smoky roasted eggplant with tahini and lemon juice', ru: 'Запечённый баклажан с тахини и лимонным соком' },
-          weight: 200, price: 590, img: '/photo-qr-menu/moutabal.webp', badges: [],
+          weight: 200, price: 690, img: '/photo-qr-menu/moutabal.webp', badges: [],
         },
         {
           id: 'a4', emoji: '🍆',
           name: { ar: 'بابا غنوج', en: 'Baba Ganoush', ru: 'Бабагануш' },
           desc: { ar: 'باذنجان مشوي مع فليفلة وطماطم وزيت زيتون ورمان', en: 'Grilled eggplant with peppers, tomatoes, olive oil and pomegranate', ru: 'Печёный баклажан с перцем, помидорами и гранатом' },
-          weight: 200, price: 630, img: '/photo-qr-menu/Baba-Ganoush.webp', badges: [],
+          weight: 200, price: 750, img: '/photo-qr-menu/Baba-Ganoush.webp', badges: [],
         },
         {
           id: 'a5', emoji: '🌶️',
           name: { ar: 'محمرة', en: 'Muhammara', ru: 'Мухаммара' },
           desc: { ar: 'فليفلة حمراء مشوية مع دبس الرمان والجوز', en: 'Roasted red peppers with pomegranate molasses and walnuts', ru: 'Жареный красный перец с гранатовой патокой и орехами' },
-          weight: 200, price: 490, img: '/photo-qr-menu/Muhammara.webp', badges: [],
+          weight: 200, price: 670, img: '/photo-qr-menu/Muhammara.webp', badges: [],
         },
         {
           id: 'a6', emoji: '🧆',
           name: { ar: 'فلافل', en: 'Falafel', ru: 'Фалафель' },
           desc: { ar: 'كرات الحمص المقلية مع صلصة الطحينة', en: 'Crispy chickpea fritters with tahini sauce', ru: 'Хрустящие шарики из нута с тахиной' },
-          weight: 220, price: 460, img: '/photo-qr-menu/falafel.webp', badges: ['recommended'],
+          weight: 470, price: 740, img: '/photo-qr-menu/falafel.webp', badges: ['recommended'],
         },
+        //
         {
           id: 'a7', emoji: '🥩',
           name: { ar: 'كبة', en: 'Kibbeh', ru: 'Кеббе' },
           desc: { ar: 'برغل محشي باللحم مع بهارات تقليدية', en: 'Bulgur stuffed with spiced meat', ru: 'Булгур с начинкой из мяса и специй' },
           weight: 250, price: 620, img: '/photo-qr-menu/keba2.webp', badges: [],
         },
+        
         {
           id: 'a8', emoji: '🫕',
           name: { ar: 'كبة حلبية', en: 'Kibbeh Halabiya', ru: 'Кеббе по-алеппски' },
@@ -750,19 +752,19 @@ const MENU_DATA = {
           id: 'a9', emoji: '🍲',
           name: { ar: 'كبة لبنية', en: 'Kibbeh Labaniyeh', ru: 'Кеббе в йогурте' },
           desc: { ar: 'كبة مطبوخة في صلصة اللبن الكريمية', en: 'Kibbeh cooked in creamy yogurt sauce', ru: 'Кеббе в сливочном йогуртовом соусе' },
-          weight: 300, price: 720, img: '/photo-qr-menu/keba-labanea.webp', badges: [],
+          weight: 300, price: 650, img: '/photo-qr-menu/keba-labanea.webp', badges: [],
         },
         {
           id: 'a10', emoji: '🍃',
           name: { ar: 'دولما خضار', en: 'Vegetable Dolma', ru: 'Долма овощная' },
           desc: { ar: 'ورق عنب محشي بالأرز والخضار', en: 'Stuffed vine leaves with rice and vegetables', ru: 'Виноградные листья с рисом и овощами' },
-          weight: 160, price: 590, img: '/photo-qr-menu/dolma.webp', badges: [],
+          weight: 160, price: 640, img: '/photo-qr-menu/dolma.webp', badges: [],
         },
         {
           id: 'a12', emoji: '🫘',
           name: { ar: 'ميني مازة', en: 'Mini Mezza', ru: 'Мини-маза' },
           desc: { ar: 'تشكيلة من الحمص، المتبل، بابا غنوج، دولما خضار', en: 'Selection of hummus, moutabal, baba ganoush and vegetable dolma', ru: 'Ассорти: хумус, мутабаль, бабагануш и овощная долма' },
-          weight: 500, price: 1150, img: '/photo-qr-menu/homos.webp', badges: ['recommended'],
+          weight: 500, price: 1280, img: '/photo-qr-menu/homos.webp', badges: ['recommended'],
         },
       ],
     },
@@ -805,13 +807,13 @@ const MENU_DATA = {
           id: 'm11', emoji: '🍖',
           name: { ar: 'مندي لحم', en: 'Meat Mandi', ru: 'Манди мясной' },
           desc: { ar: 'لحم ضأن مشوي على العظم مع أرز مدخن ومكسرات', en: 'Roasted lamb on the bone with smoked rice and nuts', ru: 'Запечённое мясо баранины на кости с копчёным рисом и орехами' },
-          weight: 350, price: 1200, img: '/photo-qr-menu/MeatMandi.webp', badges: [],
+          weight: 350, price: 1350, img: '/photo-qr-menu/MeatMandi.webp', badges: [],
         },
         {
           id: 'm12', emoji: '🍗',
           name: { ar: 'مندي دجاج', en: 'Chicken Mandi', ru: 'Манди с курицей' },
           desc: { ar: 'دجاج مشوي مع أرز متبل ومكسرات', en: 'Roasted chicken with spiced rice and nuts', ru: 'Курица, запечённая с пряным рисом и орешками' },
-          weight: 350, price: 1100, img: '/photo-qr-menu/Meat-Mandi.webp', badges: [],
+          weight: 350, price: 1150, img: '/photo-qr-menu/Meat-Mandi.webp', badges: [],
         },
 
         // البرياني
@@ -819,7 +821,7 @@ const MENU_DATA = {
           id: 'm10', emoji: '🍛',
           name: { ar: 'أرز برياني', en: 'Biryani Rice', ru: 'Рис бирьяни' },
           desc: { ar: 'بلوف مع خضار، ودجاج أو لحم ضأن حسب الاختيار', en: 'Plov with vegetables and a choice of chicken or lamb', ru: 'Плов с овощами, курицей или бараниной на выбор' },
-          weight: 350, price: 1150, img: '/photo-qr-menu/Biryani-Rice.webp', badges: [],
+          weight: 350, price: 1350, img: '/photo-qr-menu/Biryani-Rice.webp', badges: [],
         },
 
         // الرز
@@ -827,7 +829,7 @@ const MENU_DATA = {
           id: 'm13', emoji: '🍚',
           name: { ar: 'أرز بالزعفران', en: 'Saffron Rice', ru: 'Рис с шафраном' },
           desc: { ar: 'أرز بسمتي مع الليمون والزعفران', en: 'Basmati rice with lemon and saffron', ru: 'Рис басмати с лимоном и шафраном' },
-          weight: 250, price: 500, img: '/photo-qr-menu/Saffron-Rice.webp', badges: [],
+          weight: 250, price: 570, img: '/photo-qr-menu/Saffron-Rice.webp', badges: [],
         },
         {
           id: 'm14', emoji: '🍚',
@@ -1427,7 +1429,7 @@ const OFFERS = [
     ru: 'Традиционный арабский завтрак: пита, шакшука, овощи, заатар, фалафель, лабне, хумус, сыр, варенье или мёд или халва, мухаммара, оливки'
   },
 
-  price: 3500,
+  price: 3800,
   oldPrice: 4900
 },
 
@@ -1449,8 +1451,8 @@ const OFFERS = [
       en: 'Daily special dishes selected by the chef',
       ru: 'Ежедневные блюда от шеф-повара'
     },
-    price: 1850,
-    oldPrice: 2500
+    price: 1950,
+    oldPrice: 2750
   },
 
   {
