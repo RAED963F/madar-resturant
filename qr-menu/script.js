@@ -1247,7 +1247,150 @@ const MENU_DATA = {
         }
 
       ]
+    },
+{
+  id: 'hookah',
+  icon: '💨',
+  name: {
+    ar: 'الأراكيل',
+    en: 'Hookah',
+    ru: 'Кальяны'
+  },
+  items: [
+
+    {
+      id: 'h1',
+      emoji: '💨',
+      name: {
+        ar: 'أركيلة تقليدية',
+        en: 'Classic Hookah',
+        ru: 'Классический кальян'
+      },
+      desc: {
+        ar: 'أركيلة بالماء',
+        en: 'Water hookah',
+        ru: 'Кальян на воде'
+      },
+      options: [
+        {
+          label: { ar: 'عربي', en: 'Arabic', ru: 'Арабский' },
+          price: 2900
+        },
+        {
+          label: { ar: 'روسي', en: 'Russian', ru: 'Русский' },
+          price: 2900
+        }
+      ],
+      flavors: [
+        { ar: 'تفاحتين', en: 'Double Apple', ru: 'Двойное яблоко' },
+        { ar: 'عنب نعناع', en: 'Grape Mint', ru: 'Виноград мята' },
+        { ar: 'نعناع', en: 'Mint', ru: 'Мята' },
+        { ar: 'بطيخ', en: 'Watermelon', ru: 'Арбуз' }
+      ],
+      extras: [
+        { label: { ar: 'ثلج', en: 'Ice', ru: 'Лёд' }, price: 200 },
+        { label: { ar: 'ليمون', en: 'Lemon', ru: 'Лимон' }, price: 200 },
+        { label: { ar: 'نعنع إضافي', en: 'Extra Mint', ru: 'Доп. мята' }, price: 200 },
+        { label: { ar: 'قهوة', en: 'Coffee', ru: 'Кофе' }, price: 300 }
+      ],
+      img: '/photo-qr-menu/hookah/classic.webp'
+    },
+
+    {
+      id: 'h2',
+      emoji: '🥛',
+      name: {
+        ar: 'أركيلة بحليب أو عصير',
+        en: 'Milk / Juice Hookah',
+        ru: 'Кальян на молоке или соке'
+      },
+      desc: {
+        ar: 'بدل الماء حليب أو عصير',
+        en: 'Milk or juice base',
+        ru: 'Основа: молоко или сок'
+      },
+      options: [
+        {
+          label: { ar: 'حليب', en: 'Milk', ru: 'Молоко' },
+          price: 3500
+        },
+        {
+          label: { ar: 'عصير', en: 'Juice', ru: 'Сок' },
+          price: 3500
+        }
+      ],
+      flavors: [
+        { ar: 'فراولة', en: 'Strawberry', ru: 'Клубника' },
+        { ar: 'مانجا', en: 'Mango', ru: 'Манго' }
+      ],
+      extras: [
+        { label: { ar: 'ثلج', en: 'Ice', ru: 'Лёд' }, price: 200 }
+      ],
+      img: '/photo-qr-menu/hookah/milk.webp'
+    },
+
+    {
+      id: 'h3',
+      emoji: '🍍',
+      name: {
+        ar: 'أركيلة فواكه',
+        en: 'Fruit Hookah',
+        ru: 'Кальян на фрукте'
+      },
+      desc: {
+        ar: 'رأس فواكه طبيعي',
+        en: 'Fruit bowl head',
+        ru: 'Фруктовая чаша'
+      },
+      options: [
+        {
+          label: { ar: 'برتقال', en: 'Orange', ru: 'Апельсин' },
+          price: 3950
+        },
+        {
+          label: { ar: 'أناناس', en: 'Pineapple', ru: 'Ананас' },
+          price: 4900
+        },
+        {
+          label: { ar: 'تفاح', en: 'Apple', ru: 'Яблоко' },
+          price: 3850
+        }
+      ],
+      flavors: [
+        { ar: 'تفاحتين', en: 'Double Apple', ru: 'Двойное яблоко' }
+      ],
+      extras: [],
+      img: '/photo-qr-menu/hookah/fruit.webp'
+    },
+
+    {
+      id: 'h4',
+      emoji: '⚡',
+      name: {
+        ar: 'أركيلة إلكترونية',
+        en: 'Electronic Hookah',
+        ru: 'Электронный кальян'
+      },
+      desc: {
+        ar: 'بدون فحم',
+        en: 'No charcoal',
+        ru: 'Без угля'
+      },
+      options: [
+        {
+          label: { ar: 'عادي', en: 'Standard', ru: 'Стандарт' },
+          price: 3500
+        }
+      ],
+      flavors: [
+        { ar: 'نعناع', en: 'Mint', ru: 'Мята' }
+      ],
+      extras: [],
+      img: '/photo-qr-menu/hookah/electric.webp'
     }
+
+  ]
+}
   ],
 };
 
@@ -1331,6 +1474,8 @@ const OFFERS = [
     price: null,
     oldPrice: null
   }
+
+
 ];
 
 const GALLERY_ITEMS = [
@@ -1360,7 +1505,12 @@ const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
 function t(key) { return TRANSLATIONS[state.lang]?.[key] ?? TRANSLATIONS.ar[key] ?? key; }
-function loc(obj) { return obj?.[state.lang] ?? obj?.ar ?? ''; }
+
+function loc(obj) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  return obj[state.lang] ?? obj.ar ?? '';
+}
 function formatPrice(price) {
   if (typeof price !== 'number') {
     console.warn('Invalid price:', price);
@@ -1419,7 +1569,7 @@ function renderPriceBlock(item) {
         <div class="card-price-multi">
           ${item.options.map(opt => `
             <div class="price-line">
-              <span>${opt.label}</span>
+              ${loc(opt.label)}
               <span>${formatPrice(opt.price)}</span>
             </div>
           `).join('')}
@@ -1679,11 +1829,15 @@ function attachCardEvents(container, item) {
   });
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════ 
    13. CART LOGIC
 ═══════════════════════════════════════════════════════════ */
 function addToCart(item) {
 
+  if (item.flavors) {
+    openHookahBuilder(item);
+    return;
+  }
   // إذا فيه خيارات → لازم اختيار
   if (item.options && item.options.length > 1) {
     openOptionSelector(item);
@@ -1788,7 +1942,7 @@ function addOptionToCart(item, opt) {
 
   updateCartUI();
   animateBadge();
-  showToast(`${loc(item.name)} (${opt.label}) ✓`);
+  showToast(`${loc(item.name)} (${loc(opt.label)}) ✓`);
 }
 
 function refreshCardControl(itemId) {
@@ -2078,4 +2232,96 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
   init();
+}
+
+
+
+
+
+function openHookahBuilder(item) {
+  const modal = $('#size-modal');
+  const title = $('#size-title');
+  const optionsWrap = $('#size-options');
+
+  title.textContent = loc(item.name);
+  optionsWrap.innerHTML = '';
+
+  item.options.forEach(opt => {
+
+    const div = document.createElement('div');
+    div.className = 'hookah-option';
+
+    div.innerHTML = `
+      <div class="opt-title">${loc(opt.label)} — ${formatPrice(opt.price)}</div>
+
+      <select class="flavor-select">
+        ${item.flavors.map(f => `
+          <option value="${loc(f)}">${loc(f)}</option>
+        `).join('')}
+      </select>
+
+      <div class="extras">
+        ${item.extras.map(e => `
+          <label>
+            <input type="checkbox" value="${loc(e.label)}" data-price="${e.price}">
+            ${loc(e.label)} (+${formatPrice(e.price)})
+          </label>
+        `).join('')}
+      </div>
+
+      <button class="add-hookah-btn">
+        ${t('add_to_cart')} — ${formatPrice(opt.price)}
+      </button>
+    `;
+
+    div.querySelector('.add-hookah-btn').onclick = () => {
+
+      const flavor = div.querySelector('.flavor-select').value;
+
+
+      const extras = Array.from(div.querySelectorAll('input:checked'))
+        .map(el => ({
+          label: el.value,
+          price: +el.dataset.price
+        }));
+
+      addHookahToCart(item, opt, flavor, extras);
+      closeSizeModal();
+    };
+
+    optionsWrap.appendChild(div);
+  });
+
+  modal.removeAttribute('hidden');
+}
+
+
+
+function addHookahToCart(item, opt, flavor, extras) {
+
+  const extrasPrice = extras.reduce((s, e) => s + e.price, 0);
+
+  const id = `${item.id}_${opt.label}_${flavor}`;
+
+  const existing = state.cart.find(i => i.id === id);
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    state.cart.push({
+      id,
+      name: item.name,
+      price: opt.price + extrasPrice,
+      emoji: item.emoji,
+      qty: 1,
+      option: opt.label,
+      flavor,
+      extras
+    });
+  }
+
+  updateCartUI();
+  animateBadge();
+
+  showToast(`${loc(item.name)} (${opt.label} - ${flavor}) ✓`);
 }
