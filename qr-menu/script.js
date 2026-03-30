@@ -27,6 +27,7 @@
 /* ═══════════════════════════════════════════════════════════
    1. TRANSLATIONS
 ═══════════════════════════════════════════════════════════ */
+
 const TRANSLATIONS = {
   ar: {
     hero_eyebrow: 'سفارة المطبخ العربي في موسكو',
@@ -1434,6 +1435,11 @@ function renderPriceBlock(item) {
   // fallback
   return `<span class="card-price">${formatPrice(item.price)}</span>`;
 }
+
+function closeSizeModal() {
+  const modal = document.getElementById('size-modal');
+  if (modal) modal.setAttribute('hidden', '');
+}
 /* ═══════════════════════════════════════════════════════════
    6. SPLASH
 ═══════════════════════════════════════════════════════════ */
@@ -1564,7 +1570,7 @@ function renderOffers() {
 }
 
 function openOffer(item) {
-  const lang = currentLang; // نفس نظامك
+  const lang = state.lang; // ✔ الصح
 
   document.getElementById('modal-title').textContent = item.name[lang];
   document.getElementById('modal-desc').textContent = item.details[lang];
@@ -1583,6 +1589,10 @@ function closeModal() {
   document.getElementById('offer-modal').classList.add('hidden');
 }
 
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+}
 /* ═══════════════════════════════════════════════════════════
    12. RENDER MAIN MENU SECTIONS
 ═══════════════════════════════════════════════════════════ */
@@ -1744,8 +1754,8 @@ function openOptionSelector(item) {
     const btn = document.createElement('button');
 
     btn.className = 'size-btn';
-    btn.innerHTML = `${opt.label} — ${formatPrice(opt.price)}`;
-
+    const label = opt.label || `${opt.size} ${state.lang === 'ar' ? 'مل' : state.lang === 'ru' ? 'мл' : 'ml'}`;
+    btn.innerHTML = `${label} — ${formatPrice(opt.price)}`;
     btn.onclick = () => {
       addOptionToCart(item, opt);
       closeSizeModal();
